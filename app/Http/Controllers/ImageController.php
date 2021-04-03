@@ -78,12 +78,12 @@ class ImageController extends Controller
         //Envío de notificaciones push
         $url = 'https://fcm.googleapis.com/fcm/send';
         $dataArr = array('click_action' => 'FLUTTER_NOTIFICATION_CLICK', 'id' => $request->id, 'status' => "done");
-        $notification = array('title' => 'Nuevo Aviso', 'text' => $request->description,  'sound' => 'default', 'badge' => '1',);
+        $notification = array('title' => 'Nuevo Aviso', 'text' => $request->description, 'image'=> $request->image_path, 'sound' => 'default', 'badge' => '1',);
         $arrayToSend = array('to' => "/topics/all", 'notification' => $notification, 'data' => $dataArr, 'priority' => 'high');
         $fields = json_encode($arrayToSend);
         $headers = array(
             'Authorization: key=' .
-            "AAAArAFPXOA:APA91bHmy0-G9Ak6m0GhM6yg1zI-phjv5DgxweFvFeJPArM_0OabL4dglTQ92mctAsyJZZkHnZ5lqSSIWW-WoIMhhaLD71qbBfl8j17j_gkh8kUDqAhnJQ5lDFT2b-gDDjnBSUSrJBXY",
+            "AAAAn_8MYqY:APA91bEr-Z56-4wF7laUUQj3M9YDQabQhWULUZWwTYILEjM8S2zQlSFBGjW9sUK99AgjX6cSXdGUsmBKWfwY8NiM5LNYDs4g-6s1dJmPxHZA3eN0R96wx3QrOi-ppPCe1jzkIcqGqfw5",
             'Content-Type: application/json'
         );
         $ch = curl_init();
@@ -211,7 +211,7 @@ class ImageController extends Controller
                 }
             }
 
-            //Eliminar ficher de imagen
+            //Eliminar fichero de imagen
 
             Storage::disk('images')->delete($image->image_path);
 
