@@ -73,7 +73,7 @@
                         <a href="{{ route('login') }}">Iniciar Sesión</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Registrar</a>
+                            <a href="{{ route('register') }}">Registrarse</a>
                         @endif
                     @endauth
                 </div>
@@ -89,8 +89,7 @@
                     SAIEU-UT
                 </div>
                 <div class="buttom"></div>
-                <a href="#">Preguntas frecuentes</a>
-             <a href="#">Contactenos</a>
+                Sistema Automatizado de Integración Universal
             </div>
         </div>
     </body>

@@ -75,7 +75,7 @@ class ImageController extends Controller
             }
 
             $image->save();
-        //Envío de notificaciones push
+        //Envío de notificaciones push a una aplicación Android
         $url = 'https://fcm.googleapis.com/fcm/send';
         $dataArr = array('click_action' => 'FLUTTER_NOTIFICATION_CLICK', 'id' => $request->id, 'status' => "done");
         $notification = array('title' => 'Nuevo Aviso', 'text' => $request->description, 'image'=> $request->image_path, 'sound' => 'default', 'badge' => '1',);
@@ -100,7 +100,7 @@ class ImageController extends Controller
 
 
 
-        //return back()->with('success', 'La imagen ha sido guardada');
+
     }
 
     /**
@@ -219,10 +219,10 @@ class ImageController extends Controller
 
             $image->delete();
 
-            $message = array('message' => 'La imagen se ha borrado correctamente');
+            $message = array('message' => 'El aviso se ha borrado correctamente');
 
         }else{
-            $message = array('message' => 'La imagen NO se ha borrado correctamente');
+            $message = array('message' => 'El aviso NO se ha borrado correctamente');
         }
 
         return redirect()->route('home')->with($message);

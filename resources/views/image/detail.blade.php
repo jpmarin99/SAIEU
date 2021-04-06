@@ -75,15 +75,14 @@
                                     <p style="color:#949393; font-size: 14px;" class="float-right"></p>
                                 </div>
                                 <p>Asignado a: {{$image->grupo}}</p>
-                                {{-- Botones para editar o borrar la imagen depende de si el usuario es el dueño de la imagen --}}
+                                {{-- Botones para editar o borrar la imagen depende de si el usuario es el dueño del aviso --}}
                                     @if(Auth::user() && Auth::user()->id_user == $image->user->id_user)
                                     <div class="col-md-12">
                                         <div class="row">
-                                            {{-- Boton par editar la imagen --}}
+                                            {{-- Boton para editar la imagen --}}
                                         <a href="{{action('ImageController@edit',['id' => $image->id_image])}}" class="btn btn-sm btn-primary float-right">Editar</a>
-                                        {{-- <a href="{{action('ImageController@destroy',['id'=>$image->id_image])}}" class="btn btn-sm btn-secondary float-right">Borrar</a> --}}
 
-                                    {{-- Modal para preguntar si realmente queremos borrar la imagen --}}
+                                    {{-- Modal para preguntar si realmente queremos borrar el aviso --}}
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#exampleModal">
                                         Borrar
@@ -98,7 +97,7 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 {{-- Título del modal --}}
-                                            <h5 class="modal-title" id="exampleModalLabel">¿Seguro que deseas borrarla?</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">¿Seguro que deseas borrarlo?</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -106,7 +105,7 @@
                                             {{-- Cuerpo del modal --}}
                                             <div class="modal-body">
                                                 {{-- Mensaje del modal --}}
-                                                Si eliminas esta imagen nunca podras recuperarla
+                                                Si eliminas este aviso nunca podras recuperarlo
                                             </div>
                                             <div class="modal-footer">
                                                 {{-- Boton de cancelar la eliminación --}}
@@ -161,7 +160,7 @@
                                         <div class="col-md-12">
                                             <p> {{$comment->content}}</p><span class="float-right" style="font-size=14px; color:#A0ADC2; ">{{  $comment->created_at}}</span></p>
                                         </div>
-                                        {{-- Mostramos el boton de borrar comentario en caso de que el usuario sea dueño del post o sino es dueño del post que sea dueño del comentario --}}
+                                        {{-- Mostramos el boton de borrar comentario en caso de que el usuario sea dueño del aviso o sino es dueño del post que sea dueño del comentario --}}
 
                                         @if($comment->fk_id_user == Auth::user()->id_user || $image->fk_id_user == Auth::user()->id_user)
                                             <div class="col-md-2">

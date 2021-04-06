@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <title>Editar Aviso</title>
 @section('content')
-{{-- <h3>Configuración de usuario</h3> --}}
+
 
 <div class="container">
     <div class="row justify-content-center">
@@ -28,12 +28,7 @@
                             <div class="col-md-7">
                                 <input id="image_path" name="image_path" type="file" class="form-control @error('image_path') is-invalid @enderror">
 
-                                {{-- @error('image_path')
-                                    <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    </span>
 
-                                @enderror --}}
                             </div>
                         </div>
                         <div class="form-group row">
