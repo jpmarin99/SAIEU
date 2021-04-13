@@ -12,12 +12,62 @@
 */
 
 use App\image;
-
+use App\Http\Controllers\PushNotificationController;
 
 Route::get('/', function () {
+    $SERVER_API_KEY = 'AAAAuR-UQis:APA91bFEW2MtVJvdck_cQ0Z_piqq6mv1JfPnYRo29nXl5Za4soqDAEikqLweKi_TJuquGqgg6FxNXwDRjbe5tlTIvejWANdZpEQeAj4xAcvvuEWmlDj0TP1an8yl5qUBeT6jEWQPfTwN';
+
+    $token_1 = 'cIXSv0SuTpu6GbF0AbFZST:APA91bEzbWQdDy5rLcRzTexc1T1vGWByA8tvNsWA0WQL8cE7BIYyz0b-kWm8QtyyjdI2GDLle-H_g1UViHWcn1x17d_DEUPsdGCyH77Vm0qRV8oF8TCtMasumqSjsq27ENkgJGG0Pizw';
+    $data = [
+
+        "registration_ids" => [
+            $token_1
+        ],
+
+        "notification" => [
+
+            "title" => 'Welcome',
+
+            "body" => 'Description',
+
+            "sound"=> "default" // required for sound on ios
+
+        ],
+
+    ];
+
+    $dataString = json_encode($data);
+
+    $headers = [
+
+        'Authorization: key=' . $SERVER_API_KEY,
+
+        'Content-Type: application/json',
+
+    ];
+
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+
+    curl_setopt($ch, CURLOPT_POST, true);
+
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+    $response = curl_exec($ch);
 
     return view('welcome');
+
 });
+
+
+
 
 
 
@@ -49,3 +99,10 @@ Route::get('/comment/delete/{id}', 'CommentController@destroy')->name('comment.d
 Route::get('/like/{id}', 'LikeController@like')->name('like.save');
 Route::get('/dislike/{id}', 'LikeController@dislike')->name('dislike');
 Route::get('/mis_likes', 'LikeController@mis_likes')->name('mislikes');
+
+
+// Notification Controllers
+Route::post('send',[PushNotificationController::class, 'bulksend'])->name('bulksend');
+Route::get('all-notifications', [PushNotificationController::class, 'index']);
+Route::get('get-notification-form', [PushNotificationController::class, 'create']);
+Route::get('delete-notification/{id}', [PushNotificationController::class, 'destroy']);

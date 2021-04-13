@@ -76,27 +76,54 @@ class ImageController extends Controller
 
             $image->save();
         //Envío de notificaciones push a una aplicación Android
-        $url = 'https://fcm.googleapis.com/fcm/send';
-        $dataArr = array('click_action' => 'FLUTTER_NOTIFICATION_CLICK', 'id' => $request->id, 'status' => "done");
-        $notification = array('title' => 'Nuevo Aviso', 'text' => $request->description, 'image'=> $request->image_path, 'sound' => 'default', 'badge' => '1',);
-        $arrayToSend = array('to' => "/topics/all", 'notification' => $notification, 'data' => $dataArr, 'priority' => 'high');
-        $fields = json_encode($arrayToSend);
-        $headers = array(
-            'Authorization: key=' .
-            "AAAAn_8MYqY:APA91bEr-Z56-4wF7laUUQj3M9YDQabQhWULUZWwTYILEjM8S2zQlSFBGjW9sUK99AgjX6cSXdGUsmBKWfwY8NiM5LNYDs4g-6s1dJmPxHZA3eN0R96wx3QrOi-ppPCe1jzkIcqGqfw5",
-            'Content-Type: application/json'
-        );
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-        $result = curl_exec($ch);
-        //var_dump($result);
-        curl_close($ch);
+        $SERVER_API_KEY = 'AAAAuR-UQis:APA91bFEW2MtVJvdck_cQ0Z_piqq6mv1JfPnYRo29nXl5Za4soqDAEikqLweKi_TJuquGqgg6FxNXwDRjbe5tlTIvejWANdZpEQeAj4xAcvvuEWmlDj0TP1an8yl5qUBeT6jEWQPfTwN';
 
-            return redirect()->route('home')->with('message', 'El aviso ha sido publicado correctamente');
+        $token_1 = 'cIXSv0SuTpu6GbF0AbFZST:APA91bEzbWQdDy5rLcRzTexc1T1vGWByA8tvNsWA0WQL8cE7BIYyz0b-kWm8QtyyjdI2GDLle-H_g1UViHWcn1x17d_DEUPsdGCyH77Vm0qRV8oF8TCtMasumqSjsq27ENkgJGG0Pizw';
+        $data = [
+
+            "registration_ids" => [
+                $token_1
+            ],
+
+            "notification" => [
+
+                "title" => 'Nuevo aviso',
+
+                "body" => 'Se ha publicado un nuevo aviso',
+
+                "sound"=> "default" // required for sound on ios
+
+            ],
+
+        ];
+
+        $dataString = json_encode($data);
+
+        $headers = [
+
+            'Authorization: key=' . $SERVER_API_KEY,
+
+            'Content-Type: application/json',
+
+        ];
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+
+        curl_setopt($ch, CURLOPT_POST, true);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+        $response = curl_exec($ch);
+        //dd($response);
+           return redirect()->route('home')->with('message', 'El aviso ha sido publicado correctamente');
 
 
 
