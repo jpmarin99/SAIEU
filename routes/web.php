@@ -62,7 +62,7 @@ Route::get('/', function () {
 
     $response = curl_exec($ch);
 
-    return view('welcome');
+    return view('welcome')->with($response);
 
 });
 
@@ -101,8 +101,3 @@ Route::get('/dislike/{id}', 'LikeController@dislike')->name('dislike');
 Route::get('/mis_likes', 'LikeController@mis_likes')->name('mislikes');
 
 
-// Notification Controllers
-Route::post('send',[PushNotificationController::class, 'bulksend'])->name('bulksend');
-Route::get('all-notifications', [PushNotificationController::class, 'index']);
-Route::get('get-notification-form', [PushNotificationController::class, 'create']);
-Route::get('delete-notification/{id}', [PushNotificationController::class, 'destroy']);

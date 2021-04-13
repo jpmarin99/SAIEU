@@ -123,7 +123,7 @@ class ImageController extends Controller
 
         $response = curl_exec($ch);
         //dd($response);
-           return redirect()->route('home')->with('message', 'El aviso ha sido publicado correctamente');
+           return redirect()->route('home')->with('message', 'El aviso ha sido publicado correctamente',$response);
 
 
 
