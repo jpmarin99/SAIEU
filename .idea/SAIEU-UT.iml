@@ -123,6 +123,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/kreait/laravel-firebase" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/enum" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel-notification-channels/fcm" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laraveles/spanish" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
