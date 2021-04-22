@@ -16,5 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::apiResource('avisos','AvisoController');
+//Rutas de la API de avisos
+Route::get('avisos', 'AvisoController@getAllimages');
+Route::get('avisos/{id_image}', 'AvisoController@getimage');
+Route::post('avisos', 'AvisoController@createimage');
+Route::put('avisos/{id_image}', 'AvisoController@updateimage');
+Route::delete('avisos/{id_image}','AvisoController@deleteimage');
+//Rutas de API de usuarios

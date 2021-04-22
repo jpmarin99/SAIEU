@@ -68,6 +68,9 @@
                         <li class="nav-item">
                             <a href="{{route('image.create')}}" class="nav-link" >Subir Aviso</a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('print')}}" class="nav-link" >Generar PDF</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>

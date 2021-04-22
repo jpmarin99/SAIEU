@@ -7,6 +7,9 @@ Use App\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
+
+
+
 class HomeController extends Controller
 {
     /**
@@ -16,6 +19,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+
         $this->middleware('auth');
     }
 
@@ -25,7 +29,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {   
+    {
         $images = Image::orderBy('id_image', 'desc')->paginate(5);
 
         //var_dump($images);
@@ -33,6 +37,7 @@ class HomeController extends Controller
         return view('home')->with(
             'images', $images
         );
+
     }
 
 

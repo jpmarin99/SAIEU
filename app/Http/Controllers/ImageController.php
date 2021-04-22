@@ -78,7 +78,7 @@ class ImageController extends Controller
         //Envío de notificaciones push a una aplicación Android
         $SERVER_API_KEY = 'AAAAuR-UQis:APA91bFEW2MtVJvdck_cQ0Z_piqq6mv1JfPnYRo29nXl5Za4soqDAEikqLweKi_TJuquGqgg6FxNXwDRjbe5tlTIvejWANdZpEQeAj4xAcvvuEWmlDj0TP1an8yl5qUBeT6jEWQPfTwN';
 
-        $token_1 = 'cIXSv0SuTpu6GbF0AbFZST:APA91bEzbWQdDy5rLcRzTexc1T1vGWByA8tvNsWA0WQL8cE7BIYyz0b-kWm8QtyyjdI2GDLle-H_g1UViHWcn1x17d_DEUPsdGCyH77Vm0qRV8oF8TCtMasumqSjsq27ENkgJGG0Pizw';
+        $token_1 = 'cuQccJ0LTGOrpq50GMbDp_:APA91bE882Zmf881A6S-kgYYd97OireFu8iIECbW5HHYpDnjQZXmClJD5KltshUN2mXiZku0s9AHDjWwy6mekgjvCqs7JUveBYk513ygONrGCxM4iXZo_2okgRYt--xOmNtTggpMPfNF';
         $data = [
 
             "registration_ids" => [
