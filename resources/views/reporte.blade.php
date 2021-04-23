@@ -72,7 +72,7 @@
     </div>
 </main>
 <footer>
-    <p><strong>Desarrollado por SAIEU</strong></p>
+    <p><strong>Desarrollado por SAIEU el {{$now->format('d-m-Y H:i:s')}}</strong></p>
 </footer>
 </body>
 </html>

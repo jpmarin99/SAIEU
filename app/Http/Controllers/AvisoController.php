@@ -38,7 +38,7 @@ class AvisoController extends Controller
     }
 
     public function createimage(Request $request) {
-        
+
         $image_path = $request->image_path;
         $description = $request->description;
         $grupo = $request->grupo;
@@ -46,10 +46,8 @@ class AvisoController extends Controller
 
         $image = new Image();
         $image->image_path = null;
-        $image->image_path = null;
         $image->description = $description;
         $image->grupo= $grupo;
-        $image->fk_id_user = $id_user;
         //subir imagen
         if($image_path){
 
