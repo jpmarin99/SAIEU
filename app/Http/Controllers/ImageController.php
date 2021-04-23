@@ -70,7 +70,7 @@ class ImageController extends Controller
             //Subir imagen
             if($image_path){
                 $image_path_name = time().$image_path->getClientOriginalName();
-                Storage::disk('images')->put($image_path_name,File::get($image_path));
+                Storage::disk('gcs')->put($image_path_name,File::get($image_path));
                 $image->image_path = $image_path_name;
             }
 
@@ -89,7 +89,7 @@ class ImageController extends Controller
 
                 "title" => 'Nuevo aviso',
 
-                "body" => 'Se ha publicado un nuevo aviso',
+                "body" => $description,
 
                 "sound"=> "default" // required for sound on ios
 
@@ -123,7 +123,7 @@ class ImageController extends Controller
 
         $response = curl_exec($ch);
         //dd($response);
-           return redirect()->route('home')->with('message', 'El aviso ha sido publicado correctamente',$response);
+        return redirect()->route('home')->with('message', 'El aviso ha sido publicado correctamente',$response);
 
 
 
@@ -199,7 +199,7 @@ class ImageController extends Controller
          //Subir imagen
          if($image_path){
             $image_path_name = time().$image_path->getClientOriginalName();
-            Storage::disk('images')->put($image_path_name,File::get($image_path));
+            Storage::disk('gcs')->put($image_path_name,File::get($image_path));
             $image->image_path = $image_path_name;
         }
 
@@ -240,7 +240,7 @@ class ImageController extends Controller
 
             //Eliminar fichero de imagen
 
-            Storage::disk('images')->delete($image->image_path);
+            Storage::disk('gcs')->delete($image->image_path);
 
             //Eliminar registro de imagen
 
@@ -257,7 +257,7 @@ class ImageController extends Controller
     }
 
     public function getImage($fileName){
-        $file  = Storage::disk('images')->get($fileName);
+        $file  = Storage::disk('gcs')->get($fileName);
 
         return response($file, 200);
     }

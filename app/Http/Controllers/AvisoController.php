@@ -48,20 +48,21 @@ class AvisoController extends Controller
         $image->image_path = null;
         $image->description = $description;
         $image->grupo= $grupo;
+        $image->fk_id_user = $id_user;
         //subir imagen
         if($image_path){
 
             $image_path_name = time().$image_path->getClientOriginalName();
-            Storage::disk('images')->put($image_path_name,File::get($image_path));
+            Storage::disk('gcs')->put($image_path_name,File::get($image_path));
             $image->image_path = $image_path_name;
         }
 
         $image->save();
-
-
         return response()->json([
-            "message" => "Aviso creado"
-        ], 201);
+            "message" => "Aviso no encontrado"
+        ], 404);
+
+
     }
     public function updateimage(Request $request, $id_image) {
         if (Image::where('id_image', $id_image)->exists()) {
@@ -124,7 +125,7 @@ class AvisoController extends Controller
         //Subir imagen
         if($image_path){
             $image_path_name = time().$image_path->getClientOriginalName();
-            Storage::disk('images')->put($image_path_name,File::get($image_path));
+            Storage::disk('gcs')->put($image_path_name,File::get($image_path));
             $image->image_path = $image_path_name;
         }
 
