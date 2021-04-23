@@ -42,10 +42,10 @@
                     <div class="navbar-nav-wrapper">
                         <ul class="navbar-nav main-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Caracteristicas</a>
+                                <a class="nav-link" href="#features">Caracteristicas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="https://finestdevs.com/product-support/" role="button" aria-expanded="false">Soporte</a>
+                                <a class="nav-link" href="http://www.utchetumal.edu.mx/index/" role="button" aria-expanded="false">Tramites de la universidad</a>
                             </li>
                         </ul>
                     </div>
@@ -458,8 +458,8 @@
                                 <div class="social-icons">
                                     <!-- widget social icon list start -->
                                     <ul class="pl-0 list-unstyled mb-lg-0 mb-0">
-                                        <li class="d-inline-block px-3 ml-3"><a href="#" class="hover-color-primary text-white"><i class="fab fa-facebook-f font-size-3 pt-2"></i></a></li>
-                                        <li class="d-inline-block px-3 ml-3"><a href="#" class="hover-color-primary text-white"><i class="fab fa-twitter font-size-3 pt-2"></i></a></li>
+                                        <li class="d-inline-block px-3 ml-3"><a href="https://www.facebook.com/UTChetumal/" class="hover-color-primary text-white"><i class="fab fa-facebook-f font-size-3 pt-2"></i></a></li>
+                                        <li class="d-inline-block px-3 ml-3"><a href="https://twitter.com/UTChetumal" class="hover-color-primary text-white"><i class="fab fa-twitter font-size-3 pt-2"></i></a></li>
                                         <li class="d-inline-block px-3 ml-3"><a href="#" class="hover-color-primary text-white"><i class="fab fa-linkedin-in font-size-3 pt-2"></i></a></li>
                                     </ul>
                                     <!-- widget social icon list end -->

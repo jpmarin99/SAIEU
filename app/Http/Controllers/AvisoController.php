@@ -38,11 +38,26 @@ class AvisoController extends Controller
     }
 
     public function createimage(Request $request) {
+        
+        $image_path = $request->image_path;
+        $description = $request->description;
+        $grupo = $request->grupo;
+        $id_user = $request->id_user;
+
         $image = new Image();
         $image->image_path = null;
-        $image->description = $request->description;
-        $image->grupo= $request->grupo;
-        $image->fk_id_user = $request->fk_id_user;
+        $image->image_path = null;
+        $image->description = $description;
+        $image->grupo= $grupo;
+        $image->fk_id_user = $id_user;
+        //subir imagen
+        if($image_path){
+
+            $image_path_name = time().$image_path->getClientOriginalName();
+            Storage::disk('images')->put($image_path_name,File::get($image_path));
+            $image->image_path = $image_path_name;
+        }
+
         $image->save();
 
 

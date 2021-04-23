@@ -40,8 +40,7 @@
 </head>
 <body>
 <header>
-    <br>
-    <p><strong>Anuncios UT Chetumal</strong></p>
+    <img src="./images/l8/png/baner_UT-230_blanco.png" alt="">
 </header>
 <main>
     <div class="container">
