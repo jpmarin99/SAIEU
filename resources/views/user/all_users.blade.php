@@ -29,7 +29,7 @@
                         <div class="col-md-8">
                             <h3> {{$user->name}}
                             {{$user->surname}}</h3>
-                            <h4 style="color:#A0ADC2;">{{'@'.$user->nick}}</h4>
+                            <h4 style="color:#A0ADC2;">{{'Rol:'.$user->role}}</h4>
 
                             <h6 style="color:#ccc;" class="float-right">Se unió el: {{$user->created_at}}</h6>
                         </div>

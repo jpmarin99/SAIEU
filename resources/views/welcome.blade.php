@@ -86,6 +86,7 @@
                     <div class="hero-content text-center">
                         <!-- hero area section title start -->
                         <h1 class="font-size-22 font-family-5 text-white letter-spacing-np3 mb-6 ">Bienvenido al SAIEU!</h1>
+                        <p class="font-size-8 text-periwinkle-gray letter-spacing-np4 font-family-5 pr-xl-15 pr-lg-0 pr-md-15 pr-0 mb-11">Sistema Automatizado de Integración Escolar Universal</p>
                         <p class="font-size-8 text-periwinkle-gray letter-spacing-np4 font-family-5 pr-xl-15 pr-lg-0 pr-md-15 pr-0 mb-11">Crea avisos para tus alumnos y tutores y envía notificaciones a tus dispositivos</p>
                         <!-- hero area section title end -->
                     </div>
@@ -346,81 +347,7 @@
         <div class="shape l8-footer-shape-top-left">
             <img src="images/l8/svg/footer-shape.svg" alt="" class="w-100 light-shape default-shape z-index-n2">
         </div>
-        <div class="container pt-lg-23 pt-15 pb-12">
-            <div class="row justify-content-between" data-aos="fade-left" data-aos-duration="800" data-aos-once="true">
-                <div class="col col-cus-6">
-                    <div class="footer-widget widget2 mb-md-0 mb-13">
-                        <!-- footer widget title start -->
-                        <p class="widget-title font-size-3 font-weight-normal text-periwinkle-gray mb-md-9 mb-7 font-family-inter">Store</p>
-                        <!-- footer widget title end -->
-                        <!-- widget social menu start -->
-                        <ul class="widget-links pl-0 list-unstyled list-hover-primary">
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Catalog</a></li>
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Popular</a></li>
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Features</a></li>
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">F.a.q.</a></li>
-                        </ul>
-                        <!-- widget social menu end -->
-                    </div>
-                </div>
-                <div class="col col-cus-6">
-                    <div class="footer-widget widget3 mb-sm-0 mb-13">
-                        <!-- footer widget title start -->
-                        <p class="widget-title font-size-3 font-weight-normal text-periwinkle-gray mb-md-9 mb-7 font-family-inter">About</p>
-                        <!-- footer widget title end -->
-                        <!-- widget social menu start -->
-                        <ul class="widget-links pl-0 list-unstyled list-hover-primary">
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Catalog</a></li>
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Popular</a></li>
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Features</a></li>
-                        </ul>
-                        <!-- widget social menu end -->
-                    </div>
-                </div>
-                <div class="col col-cus-6">
-                    <div class="footer-widget widget4 mb-sm-0 mb-13">
-                        <!-- footer widget title start -->
-                        <p class="widget-title font-size-3 font-weight-normal text-periwinkle-gray mb-md-9 mb-7 font-family-inter">Policy</p>
-                        <!-- footer widget title end -->
-                        <!-- widget social menu start -->
-                        <ul class="widget-links pl-0 list-unstyled list-hover-primary">
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Catalog</a></li>
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Popular</a></li>
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Features</a></li>
-                        </ul>
-                        <!-- widget social menu end -->
-                    </div>
-                </div>
-                <div class="col col-cus-6">
-                    <div class="footer-widget widget4 mb-sm-0 mb-13">
-                        <!-- footer widget title start -->
-                        <p class="widget-title font-size-3 font-weight-normal text-periwinkle-gray mb-md-9 mb-7 font-family-inter">Team</p>
-                        <!-- footer widget title end -->
-                        <!-- widget social menu start -->
-                        <ul class="widget-links pl-0 list-unstyled list-hover-primary">
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Catalog</a></li>
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Popular</a></li>
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Features</a></li>
-                        </ul>
-                        <!-- widget social menu end -->
-                    </div>
-                </div>
-                <div class="col col-cus-6">
-                    <div class="footer-widget widget4 mb-sm-0 mb-13">
-                        <!-- footer widget title start -->
-                        <p class="widget-title font-size-3 font-weight-normal text-periwinkle-gray mb-md-9 mb-7 font-family-inter">Support</p>
-                        <!-- footer widget title end -->
-                        <!-- widget social menu start -->
-                        <ul class="widget-links pl-0 list-unstyled list-hover-primary">
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Catalog</a></li>
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Popular</a></li>
-                            <li class="mb-6"><a class="text-selago-3 font-size-5 font-weight-normal font-family-inter" href="">Features</a></li>
-                        </ul>
-                        <!-- widget social menu end -->
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <!-- footer-bottom start -->
         <div class="pt-6 pb-5">
             <div class="container">
@@ -429,7 +356,7 @@
                         <div class="navbar site-navbar d-md-flex d-block text-center px-0">
                             <!-- DO NOT DELETE THIS CREDIT. TO DELETE, PLEASE BUY PRO LICENSE -->
                             <div class="copyright">
-                                <p class="font-size-1 font-family-5 text-periwinkle-gray line-height-1p5 mb-0 font-family-inter"> &copy; Grayic 2020 All right reserved. </p>
+                                <p class="font-size-1 font-family-5 text-periwinkle-gray line-height-1p5 mb-0 font-family-inter"> &copy; SAIEU 2021 Todos los derechos resevados. </p>
                             </div>
                             <!-- copyright end-->
                             <!-- footer-menu start-->
@@ -439,13 +366,13 @@
                                     <!-- main-menu start-->
                                     <ul class="mb-0 list-unstyled d-flex flex-row justify-content-center">
                                         <li class="mx-3">
-                                            <a class="text-periwinkle-gray font-size-1 font-weight-normal font-family-inter" href="#">Privacy Policy</a>
+                                            <a class="text-periwinkle-gray font-size-1 font-weight-normal font-family-inter" href="#">Politica de privacidad</a>
                                         </li>
                                         <li class="mx-3">
-                                            <a class="text-periwinkle-gray font-size-1 font-weight-normal font-family-inter" href="#features">Terms & Conditions</a>
+                                            <a class="text-periwinkle-gray font-size-1 font-weight-normal font-family-inter" href="#features">Terminos y condiciones</a>
                                         </li>
                                         <li class="mx-3">
-                                            <a class="text-periwinkle-gray font-size-1 font-weight-normal font-family-inter" href="/public/sitemap.pdf"> Site map</a>
+                                            <a class="text-periwinkle-gray font-size-1 font-weight-normal font-family-inter" href="/public/sitemap.pdf">Mapa de sitio</a>
                                         </li>
                                     </ul>
                                     <!-- main-menu end-->
