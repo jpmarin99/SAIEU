@@ -24,3 +24,4 @@ Route::put('avisos/{id_image}', 'AvisoController@updateimage');
 Route::delete('avisos/{id_image}','AvisoController@deleteimage');
 //Rutas de API de usuarios
 Route::post('usuarios', 'UsuarioController@createuser');
+Route::post('login', 'UsuarioController@login');

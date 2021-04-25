@@ -372,7 +372,7 @@
                                             <a class="text-periwinkle-gray font-size-1 font-weight-normal font-family-inter" href="#features">Terminos y condiciones</a>
                                         </li>
                                         <li class="mx-3">
-                                            <a class="text-periwinkle-gray font-size-1 font-weight-normal font-family-inter" href="/public/sitemap.pdf">Mapa de sitio</a>
+                                            <a class="text-periwinkle-gray font-size-1 font-weight-normal font-family-inter" href="/sitemap.pdf">Mapa de sitio</a>
                                         </li>
                                     </ul>
                                     <!-- main-menu end-->

@@ -76,13 +76,15 @@ class ImageController extends Controller
 
             $image->save();
         //Envío de notificaciones push a una aplicación Android
-        $SERVER_API_KEY = 'AAAAuR-UQis:APA91bFEW2MtVJvdck_cQ0Z_piqq6mv1JfPnYRo29nXl5Za4soqDAEikqLweKi_TJuquGqgg6FxNXwDRjbe5tlTIvejWANdZpEQeAj4xAcvvuEWmlDj0TP1an8yl5qUBeT6jEWQPfTwN';
+        $SERVER_API_KEY = 'AAAA9zOkRgY:APA91bGFLkuWyjgKjBhJ_p7a5imZJ4l2jKU1jKK6OirkH7Qz9ZwdfyXOEpK9vJAYmGz685tYU3UGSYluJFwpHU1bxeWjX30PfinSwMYmJRe9LdU-Zq4U0867Ygy-wFrC7XVDiRkeOEzm';
 
-        $token_1 = 'cuQccJ0LTGOrpq50GMbDp_:APA91bE882Zmf881A6S-kgYYd97OireFu8iIECbW5HHYpDnjQZXmClJD5KltshUN2mXiZku0s9AHDjWwy6mekgjvCqs7JUveBYk513ygONrGCxM4iXZo_2okgRYt--xOmNtTggpMPfNF';
+        $token_1 = 'dNx_qOYPSw6Ns10HvUka_6:APA91bENxTSHgKUMpbSEDEMPWCSnqoUBWVEM_7aerFFinumptLJ01ZAZLXj-M1SHqNIVuHhIJYzPZUttnPPyO-p2zBo2xl6za4fWh51W3ImKWBvImlpqWxHsKFoUcy8oReLOVh8zSgvU';
+        $token_2 = 'f0e6hDv1TVe_dujSPAfxrC:APA91bExhbnStsYnYSMXSLbKdy9mBkjlb7hoMCOGPW5TrEG-6AxzsG9eY5wCgj-0QQ7dKCDPzvgTdfhbVlX_q9xStPuRHvHKU6ZS7Ubaq6bq4ieobkMBYUw4RAapm8nh4fWGqD1zTj5-';
         $data = [
 
             "registration_ids" => [
-                $token_1
+                $token_1,
+                $token_2
             ],
 
             "notification" => [
