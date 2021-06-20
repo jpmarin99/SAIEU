@@ -114,7 +114,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/kreait/clock" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/kreait/firebase-php" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/ralouphie/getallheaders" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/kreait/firebase-tokens" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/rize/uri-template" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />
@@ -132,6 +131,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/superbalist/laravel-google-cloud-storage" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/superbalist/flysystem-google-storage" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem-cached-adapter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/ralouphie/getallheaders" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -141,5 +141,9 @@
     <orderEntry type="library" name="jquery-3.6.0" level="application" />
     <orderEntry type="library" name="@popperjs" level="application" />
     <orderEntry type="library" name="@popperjs/core" level="application" />
+    <orderEntry type="library" name="select2" level="application" />
+    <orderEntry type="library" name="axios" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="jquery-3.6.0" level="application" />
   </component>
 </module>

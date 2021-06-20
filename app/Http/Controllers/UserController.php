@@ -35,7 +35,7 @@ class UserController extends Controller
             $all_users = User::orderBy('id_user', 'desc')
                             ->paginate(5);
         }
-        
+
 
         return view('user.all_users')->with('users', $all_users);
     }
@@ -45,7 +45,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function config()
-    {   
+    {
         //Proteger Vista
             //Entra en acción el middlware que esta arriba
 
@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -97,7 +97,7 @@ class UserController extends Controller
 
     //Actualizar usuario
     public function update(Request $request)
-    {   
+    {
         //Conseguir el usuario identificado en este caso lo traemos del formulario
         $id_user = $request->input('id_user');
 
@@ -105,28 +105,28 @@ class UserController extends Controller
 
         //Validamos cada campo del formulario, en vista de que estoy usando campos ID customizados pues tambien estoy usando reglas de validacion customizadas como es el caso de nickRepetido e emailRepetido
         $validate = $this->validate($request, [
-            
+
             'name' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
             'nick' => ['required','string','max:200', new nickRepetido],
             'email' => ['required', 'string', 'email', 'max:255', new emailRepetido]
         ]);
-            
-        //Seteamos en variables los datos del formulario    
+
+        //Seteamos en variables los datos del formulario
         $name = $request->input('name');
         $surname = $request->input('surname');
         $nick = $request->input('nick');
         $email = $request->input('email');
 
         //$user = auth()->user();
-        
+
         //Update a la base de datos
          /*DB::table('users')
               ->where('id_user', $id_user)
               ->update(['name' => $name,'surname' => $surname,'nick' => $nick,'email' => $email] );
             */
             $user->name = $name;
-            $user->surname = $surname;    
+            $user->surname = $surname;
             $user->nick = $nick;
             $user->email = $email;
 
@@ -134,7 +134,7 @@ class UserController extends Controller
             $image_path = $request->file('image_path');
             if($image_path){
                 $image_path_name = time().$image_path->getClientOriginalName();
-                Storage::disk('users')->put($image_path_name,File::get($image_path));
+                Storage::disk('gcs')->put($image_path_name,File::get($image_path));
                 $user->image = $image_path_name;
             }
 
@@ -143,12 +143,12 @@ class UserController extends Controller
         //var_dump($user);
         //die();
 
-        return redirect()->route('config')->with('message', 'Usuario actualizado correctamente');        
+        return redirect()->route('config')->with('message', 'Usuario actualizado correctamente');
     }
 
     public function getImage($fileName){
 
-        $file  = Storage::disk('users')->get($fileName);
+        $file  = Storage::disk('gcs')->get($fileName);
 
         return response($file, 200);
     }

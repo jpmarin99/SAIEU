@@ -38,9 +38,14 @@
                             <div class="col-md-7">
                             <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror" required>{{$image->description}}</textarea>
                                  @error('description')
-                                    <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                    </span>
+                                <script>
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: 'Hay un error al editar el aviso!',
+                                        timer: 10000,
+                                    })
+                                </script>
 
                                 @enderror
                             </div>

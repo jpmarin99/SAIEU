@@ -8,9 +8,14 @@
         <div class="col-md-10">
 
             @if (session('message'))
-                <div class="alert alert-success">
-                    {{ session('message') }}
-                </div>
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: 'Acción realizada correctamente!',
+                        timer: 10000,
+                    })
+                </script>
              @endif
 
 
@@ -158,7 +163,7 @@
                                         <p>By: {{$comment->user->name.'  '}}<span style="color:#A0ADC2;" class="float-right">{{  '@'.$comment->user->nick}}</span></p>
 
                                         <div class="col-md-12">
-                                            <p> {{$comment->content}}</p><span class="float-right" style="font-size=14px; color:#A0ADC2; ">{{  $comment->created_at}}</span></p>
+                                            <p> {{$comment->content}}</p><span class="float-right" style="font-size:14px; color:#A0ADC2; ">{{  $comment->created_at}}</span>
                                         </div>
                                         {{-- Mostramos el boton de borrar comentario en caso de que el usuario sea dueño del aviso o sino es dueño del post que sea dueño del comentario --}}
 
