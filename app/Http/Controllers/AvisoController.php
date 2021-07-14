@@ -26,9 +26,9 @@ class AvisoController extends Controller
         return response($images, 200);
     }
 
-    public function getimage($id_image) {
+    public function getimage($id_image, $token) {
         if (Image::where('id_image', $id_image)->exists()) {
-            $image = Image::where('id_image', $id_image)->get()->toJson(JSON_PRETTY_PRINT);
+            $image = Image::where('id_image', $id_image ,'/api/avisos?api_token='.$token)->get()->toJson(JSON_PRETTY_PRINT);
             return response($image, 200);
         } else {
             return response()->json([

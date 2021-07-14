@@ -206,6 +206,69 @@
     </div>
     <div class="video-area section-bg-img-3 pt-lg-23 pt-19 pb-lg-21 pb-15">
         <div class="container">
+
+                <script>
+                    function showTime(){
+                        myDate = new Date();
+                        hours = myDate.getHours();
+                        minutes = myDate.getMinutes();
+                        seconds = myDate.getSeconds();
+                        if (hours < 10) hours = 0 + hours;
+                        if (minutes < 10) minutes = "0" + minutes;
+                        if (seconds < 10) seconds = "0" + seconds;
+                        $("#HoraActual").text(hours+ ":" +minutes+ ":" +seconds);
+                        setTimeout("showTime()", 1000);
+
+                    }
+
+                    var f = new Date();
+                    document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
+
+            </script>
+            <h1 id="HoraActual"> </h1>
+            <div class="card">
+
+                <h2><i class="fa fa-map-marker"></i> <span id="location"></span></h2>
+                <h6 id="weather"></h6>
+                <label>La temperatura actual es:</label>
+                <h4><span id="temp"></span><sup>o</sup>C</h4>
+                <label>La temperatura minima es:</label>
+                <h4><span id="tempmin"></span><sup>o</sup>C</h4>
+                <label>La temperatura maxima es:</label>
+                <h4><span id="tempmax"></span><sup>o</sup>C</h4>
+                <label>La velocidad del viento es de:</label>
+                <h6 id="windspeed"></h6>
+                <label>La humedad actual es:</label>
+                <h6 id="humidity"><sup>%</sup>%</h6>
+                <img id="icon" src="">
+                <button onClick="window.location.reload();" class="refresh"><i class="fa fa-refresh"></i>Refrescar</button>
+            </div>
+            <script type="text/javascript">
+                link = "https://api.openweathermap.org/data/2.5/weather?q=Chetumal&appid=91526f25c758938b547f25265183eee6";
+                var request = new XMLHttpRequest();
+                request.open('GET',link,true);
+                request.onload = function(){
+                    var obj = JSON.parse(this.response);
+                    console.log(obj);
+
+                    document.getElementById('weather').innerHTML = obj.weather[0].description;
+                    document.getElementById('location').innerHTML = obj.name;
+                    document.getElementById('humidity').innerHTML = obj.main.humidity;
+                    document.getElementById('temp').innerHTML = obj.main.temp - 273.15;
+                    document.getElementById('tempmin').innerHTML = obj.main.temp_min - 273.15;
+                    document.getElementById('tempmax').innerHTML = obj.main.temp_max - 273.15;
+                    document.getElementById('windspeed').innerHTML = obj.wind.speed;
+                    document.getElementById('icon').src = "http://openweathermap.org/img/w/" + obj.weather[0].icon + ".png";
+
+                    if (request.status >= 200 && request.status < 400) {
+                        var temp = obj.main.temp;
+                    }
+                    else{
+                        console.log("The city doesn't exist! Kindly check");
+                    }
+                }
+                request.send();
+            </script>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
 

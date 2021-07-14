@@ -17,11 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 //Rutas de la API de avisos
-Route::get('avisos', 'AvisoController@getAllimages');
-Route::get('avisos/{id_image}', 'AvisoController@getimage');
-Route::post('avisos', 'AvisoController@createimage');
-Route::put('avisos/{id_image}', 'AvisoController@updateimage');
-Route::delete('avisos/{id_image}','AvisoController@deleteimage');
+Route::middleware('auth:api')->get('avisos', 'AvisoController@getAllimages');
+Route::middleware('auth:api')->get('avisos/{id_image}', 'AvisoController@getimage');
+Route::middleware('auth:api')->post('avisos', 'AvisoController@createimage');
+Route::middleware('auth:api')->put('avisos/{id_image}', 'AvisoController@updateimage');
+Route::middleware('auth:api')->delete('avisos/{id_image}','AvisoController@deleteimage');
 //Rutas de API de usuarios
-Route::post('usuarios', 'UsuarioController@createuser');
-Route::post('login', 'UsuarioController@login');
+Route::middleware('auth:api')->post('usuarios', 'UsuarioController@createuser');
+Route::middleware('auth:api')->post('login', 'UsuarioController@login');
