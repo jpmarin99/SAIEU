@@ -1,0 +1,27 @@
+version: '3.6'
+services:
+  laravel-db:
+    image: mysql:8.0
+  saieu:
+  build:
+    context: ./
+    dockerfile: Dockerfile
+   ports: 8200:80
+  volumes:
+    ./example-prod: var/www
+    ./example-prod/public: var/www/html
+  networks:
+    ipv4_address: 172.21.100.10
+   ports:
+    3306:80
+  depends_on:
+    laravel-db
+volumes:
+  example-prod:
+  netwoks:
+  saieu_prod_net:
+    driver: bridge
+  ipan:
+    driver: default
+  config:
+  subnet: null
