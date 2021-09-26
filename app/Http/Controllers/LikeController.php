@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Like;
 
@@ -15,17 +16,17 @@ class LikeController extends Controller
 
     public function like($id_image){
 
-        $user = \Auth::user();
+        $user = Auth::user();
         //Condicion para ver si ya existe el like y no duplicarlo
 
         $isset_like = Like::where('fk_id_user', "=" ,$user->id_user)->where('fK_id_image', "=" ,$id_image)->count();
 
         if($isset_like == 0){
-        
+
             $like = new Like();
             $like->fk_id_user = $user->id_user;
             $like->fk_id_image = (int)$id_image;
-            $like->save(); 
+            $like->save();
 
             return response()->json([
                 'like' => $like
@@ -35,22 +36,22 @@ class LikeController extends Controller
                 'message' => 'El like ya existe',
             ]);
         }
-        
 
-       
-        
+
+
+
     }
 
     public function dislike($id_image){
 
-        $user = \Auth::user();
+        $user = Auth::user();
         //Condicion para ver si ya existe el like y no duplicarlo
 
         $like = Like::where('fk_id_user', "=" ,$user->id_user)->where('fK_id_image', "=" ,$id_image)->first();
 
         if($like){
-        
-            $like->delete(); 
+
+            $like->delete();
 
             return response()->json([
                 'like' => $like,
@@ -66,7 +67,7 @@ class LikeController extends Controller
 
     public function mis_likes(){
 
-        $id_user = \Auth::user()->id_user;
+        $id_user = Auth::user()->id_user;
 
         $likes = Like::where('fk_id_user', '=', $id_user)
         ->orderBy('id_like', 'desc')

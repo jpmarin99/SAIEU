@@ -1,36 +1,50 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>function darkmode() {
+        var cuerpoweb = document.body;
+        cuerpoweb.classList.toggle("oscuro");
+    }
 
+    $('.dropdown').click(function(){
+
+        $('.dropdown-menu').toggleClass('show');
+
+    });
+</script>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'SAIEU-UT') }}</title>
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- Fonts -->
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light bg-success shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{{route('home') }}">
+            <a class="navbar-brand" href="{{ route('home') }}">
 
                 {{-- {{ config('app.name', 'Laravel') }} --}}
                 SAIEU-UT
@@ -50,31 +64,35 @@
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
-                        </li>
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">Registrarse</a>
-                            </li>
-                        @endif
-                    @else
-                        <li>
-                            <div class="col-md-2" style="float: right; margin-right: -35px; border-radius: 900px; margin-top:5px;" >
-                                @include('includes.avatar')
-                            </div>
+                            <button type="button" class="btn btn-dark" onclick="darkmode()">Oscuro / Claro</button>
 
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('user.index')}}" class="nav-link">Usuarios</a>
+                            <a class="nav-link" hidden href="{{ route('login') }}">Login</a>
+                        </li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" hidden href="{{ route('register') }}">Registrarse</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-dark" onclick="darkmode()">Oscuro / Claro</button>
+
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('user.index')}}" class="nav-link"><i class="fas fa-users"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('image.create')}}" class="nav-link" >Subir Aviso</a>
+                            <a href="{{route('image.create')}}" class="nav-link"><i class="fas fa-file-invoice"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('print')}}" class="nav-link" >Generar PDF</a>
+                            <a href="{{route('print')}}" class="nav-link"><i class="fas fa-file-pdf"></i></a>
                         </li>
+
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle"  href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
@@ -87,12 +105,15 @@
                                     Configuración
                                 </a>
 
+<center>
+
+
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    Cerrar Sesión
+                                    <span class="fas fa-power-off"></span>
                                 </a>
-
+</center>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
@@ -109,5 +130,8 @@
         @yield('content')
     </main>
 </div>
+<script>
+
+</script>
 </body>
 </html>

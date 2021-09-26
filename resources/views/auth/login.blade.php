@@ -14,12 +14,12 @@
 <div class="hold-transition login-page">
 <div class="login-box">
     <!-- /.login-logo -->
-    <div class="card card-outline card-primary">
+    <div class="card text-white bg-dark mb-3">
         <div class="card-header text-center">
             <a href="#" class="h1"><b>SAIEU</b></a>
         </div>
                 <div class="card-body">
-                    <p class="login-box-msg">Sign in to start your session</p>
+                    <p class="login-box-msg">Ingresa con tus credenciales para iniciar sesión</p>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="input-group mb-3">
@@ -71,12 +71,22 @@
                                 <button type="submit" class="btn btn-primary">
                                     Inicia Sesión
                                 </button>
+                            </div>
+                        </div>
                                 </form>
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         ¿Olvidaste tu contraseña?
                                     </a>
                                 @endif
+                    <br>
+                    @if (Route::has('register'))
+
+                            <a class="btn btn-link" href="{{ route('register') }}">
+                                ¿No tienes una cuenta? Registrate ahora </a>
+
+                    @endif
+
                             </div>
                         </div>
                     </div>

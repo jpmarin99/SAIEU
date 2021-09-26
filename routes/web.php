@@ -13,6 +13,7 @@
 
 use App\image;
 use App\Http\Controllers\PushNotificationController;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     $SERVER_API_KEY = 'AAAA9zOkRgY:APA91bGFLkuWyjgKjBhJ_p7a5imZJ4l2jKU1jKK6OirkH7Qz9ZwdfyXOEpK9vJAYmGz685tYU3UGSYluJFwpHU1bxeWjX30PfinSwMYmJRe9LdU-Zq4U0867Ygy-wFrC7XVDiRkeOEzm';
@@ -87,6 +88,7 @@ Route::get('/user/avatar/{filename?}', 'UserController@getImage')->name('user.im
 //Rutas de imagenes
 Route::get('/image/create', 'ImageController@create')->name('image.create');
 Route::post('/image/store', 'ImageController@store')->name('image.store');
+
 Route::get('/image/get/{filename?}', 'ImageController@getImage')->name('image.get');
 Route::get('/image/show/{id}', 'ImageController@show')->name('image.show');
 Route::get('/image/delete/{id}', 'ImageController@destroy')->name('image.delete');

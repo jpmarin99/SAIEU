@@ -1671,7 +1671,7 @@ function spline(opts) {
 						addGap(gaps, prevXPos, xPos);
 						inGap = true;
 					}
-					continue;
+
 				}
 				else {
 					if (inGap) {

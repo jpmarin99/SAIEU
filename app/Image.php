@@ -14,6 +14,8 @@ class Image extends Model
 
     protected $fillable = ['fk_id_user', 'image_path', 'description','grupo', 'created_at', 'updated_at'];
 
+
+
     public function comments(){
         return $this->hasMany('App\Comment', 'fk_id_image', 'id_image')->orderBy('id_comment', 'desc');
     }

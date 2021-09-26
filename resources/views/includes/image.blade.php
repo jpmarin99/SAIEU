@@ -1,10 +1,11 @@
+
 <div class="card">
     <div class="card-header">
         <div class="col-md-12">
             <div class="row">
                 @if($image->user->image)
                 <div class="col-md-2">
-                <img src="{{route('user.image',['filename' => $image->user->image ])}}" alt="" class="col-md-12 mx-auto rounded-circle" style="max-width:60px;">
+                    <img src="{{route('user.image',['filename' => $image->user->image ])}}" alt="" class="col-md-12 mx-auto rounded-circle" style="max-width:60px;">
                 </div>
                 @endif
                 <div class="col-md-10">
@@ -26,7 +27,7 @@
                         <div class="col-md-10"><span style="color:#A0ADC2;">{{'@'.$image->user->nick}}</span><br></div>
                         <div class="col-md-2 float-right">
                             @php
-                                $is_liked = false;
+                                $is_liked = false
                             @endphp
                             @foreach ($image->likes as $like)
                                 @if($like->fk_id_user == Auth::user()->id_user)
@@ -35,7 +36,7 @@
                                     @endphp
                                 @else
                                     @php
-                                        $is_liked = false;
+                                        $is_liked = false
                                     @endphp
                                 @endif
                             @endforeach

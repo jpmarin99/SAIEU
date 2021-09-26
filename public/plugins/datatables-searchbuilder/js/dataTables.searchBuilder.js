@@ -160,7 +160,7 @@
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 		 * Public
 		 */
-		
+
 		/**
 		 * Destroy the control
 		 */
@@ -292,7 +292,7 @@
 		/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 		 * Constructor
 		 */
-		
+
 		/**
 		 * Build the control and assign initial event handlers
 		 *
@@ -603,7 +603,7 @@
 		 * @private
 		 */
 		_daysInMonth: function ( year, month ) {
-			// 
+			//
 			var isLeap = ((year % 4) === 0 && ((year % 100) !== 0 || (year % 400) === 0));
 			var months = [31, (isLeap ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
@@ -712,7 +712,7 @@
 
 		/**
 		 * Create the HTML for a month to be displayed in the calendar table.
-		 * 
+		 *
 		 * Based upon the logic used in Pikaday - MIT licensed
 		 * Copyright (c) 2014 David Bushell
 		 * https://github.com/dbushell/Pikaday
@@ -852,7 +852,7 @@
 
 				return i18n.weekdays[day];
 			};
-			
+
 			// Empty cell in the header
 			if ( this.c.showWeekNumber ) {
 				a.push( '<th></th>' );
@@ -874,7 +874,7 @@
 		 * @param  {integer} d Day of month
 		 * @param  {integer} m Month of year (zero index)
 		 * @param  {integer} y Year
-		 * @return {string}   
+		 * @return {string}
 		 * @private
 		 */
 		_htmlWeekOfYear: function ( d, m, y ) {
@@ -977,7 +977,7 @@
 				var selected = val === value || (value === 'am' && val < 12) || (value === 'pm' && val >= 12) ?
 					'selected' :
 					'';
-				
+
 				if (allowed && $.inArray(value, allowed) === -1) {
 					selected += ' disabled';
 				}
@@ -996,7 +996,7 @@
 			if ( count === 12 ) {
 				// Hours with AM/PM
 				a += '<tr>';
-				
+
 				for ( i=1 ; i<=6 ; i++ ) {
 					a += button(i, render(i));
 				}
@@ -1034,7 +1034,7 @@
 					a += button(j, render(j), 'range');
 				}
 				a += '</tr>';
-				
+
 				// Slight hack to allow for the different number of columns
 				a += '</tbody></thead><table class="'+className+' '+className+'-nospace"><tbody>';
 
@@ -1232,7 +1232,7 @@
 		/**
 		 * Show the widget and add events to the document required only while it
 		 * is displayed
-		 * 
+		 *
 		 * @private
 		 */
 		_show: function () {
@@ -1308,7 +1308,7 @@
 				this.dom.input
 					.val( out )
 					.trigger('change', {write: date});
-			
+
 			if ( this.dom.input.attr('type') === 'hidden' ) {
 				this.val(out, false);
 			}
@@ -2539,7 +2539,7 @@
 	            isInputValid: function () { return true; },
 	            init: Criteria.initNoValue,
 	            inputValue: function () {
-	                return;
+
 	            },
 	            search: function (value) {
 	                return (value === null || value === undefined || value.length === 0);
@@ -2552,7 +2552,7 @@
 	            isInputValid: function () { return true; },
 	            init: Criteria.initNoValue,
 	            inputValue: function () {
-	                return;
+
 	            },
 	            search: function (value) {
 	                return !(value === null || value === undefined || value.length === 0);
@@ -2650,7 +2650,7 @@
 	            isInputValid: function () { return true; },
 	            init: Criteria.initNoValue,
 	            inputValue: function () {
-	                return;
+
 	            },
 	            search: function (value) {
 	                return (value === null || value === undefined || value.length === 0);
@@ -2663,7 +2663,7 @@
 	            isInputValid: function () { return true; },
 	            init: Criteria.initNoValue,
 	            inputValue: function () {
-	                return;
+
 	            },
 	            search: function (value) {
 	                return !(value === null || value === undefined || value.length === 0);
@@ -2775,7 +2775,7 @@
 	                return dt.i18n('searchBuilder.conditions.number.empty', i18n.conditions.number.empty);
 	            },
 	            init: Criteria.initNoValue,
-	            inputValue: function () { return; },
+	            inputValue: function () {  },
 	            isInputValid: function () { return true; },
 	            search: function (value) {
 	                return (value === null || value === undefined || value.length === 0);
@@ -2788,7 +2788,7 @@
 	            isInputValid: function () { return true; },
 	            init: Criteria.initNoValue,
 	            inputValue: function () {
-	                return;
+
 	            },
 	            search: function (value) {
 	                return !(value === null || value === undefined || value.length === 0);
@@ -2954,7 +2954,7 @@
 	                return dt.i18n('searchBuilder.conditions.number.empty', i18n.conditions.number.empty);
 	            },
 	            init: Criteria.initNoValue,
-	            inputValue: function () { return; },
+	            inputValue: function () {  },
 	            isInputValid: function () { return true; },
 	            search: function (value) {
 	                return (value === null || value === undefined || value.length === 0);
@@ -2967,7 +2967,7 @@
 	            isInputValid: function () { return true; },
 	            init: Criteria.initNoValue,
 	            inputValue: function () {
-	                return;
+
 	            },
 	            search: function (value) {
 	                return !(value === null || value === undefined || value.length === 0);
@@ -3036,7 +3036,7 @@
 	                return dt.i18n('searchBuilder.conditions.string.empty', i18n.conditions.string.empty);
 	            },
 	            init: Criteria.initNoValue,
-	            inputValue: function () { return; },
+	            inputValue: function () {  },
 	            isInputValid: function () { return true; },
 	            search: function (value) {
 	                return (value === null || value === undefined || value.length === 0);
@@ -3049,7 +3049,7 @@
 	            isInputValid: function () { return true; },
 	            init: Criteria.initNoValue,
 	            inputValue: function () {
-	                return;
+
 	            },
 	            search: function (value) {
 	                return !(value === null || value === undefined || value.length === 0);
@@ -3124,7 +3124,7 @@
 	            },
 	            init: Criteria.initNoValue,
 	            isInputValid: function () { return true; },
-	            inputValue: function () { return; },
+	            inputValue: function () {  },
 	            search: function (value) {
 	                return (value === null || value === undefined || value.length === 0);
 	            }
@@ -3135,7 +3135,7 @@
 	            },
 	            isInputValid: function () { return true; },
 	            init: Criteria.initNoValue,
-	            inputValue: function () { return; },
+	            inputValue: function () {  },
 	            search: function (value) {
 	                return (value !== null && value !== undefined && value.length !== 0);
 	            }
@@ -3581,7 +3581,7 @@
 	            var crit = _a[_i];
 	            // If the criteria is not complete then skip it
 	            if (crit.criteria instanceof Criteria && !crit.criteria.s.filled) {
-	                continue;
+
 	            }
 	            // Otherwise if a single one fails return false
 	            else if (!crit.criteria.search(rowData, rowIdx)) {

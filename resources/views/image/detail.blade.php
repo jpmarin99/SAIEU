@@ -51,7 +51,7 @@
                                 {{-- Lógica de Likes --}}
                                 <div class="col-md-1 float-right">
                                     @php
-                                    $is_liked = false;
+                                    $is_liked = false
                                     @endphp
                                     @foreach ($image->likes as $like)
                                         @if($like->fk_id_user == Auth::user()->id_user)
@@ -60,7 +60,7 @@
                                             @endphp
                                         @else
                                             @php
-                                                $is_liked = false;
+                                                $is_liked = false
                                             @endphp
                                         @endif
                                     @endforeach

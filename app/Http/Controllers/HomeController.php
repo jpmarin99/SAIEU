@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-Use App\Image;
+use App\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
@@ -26,7 +27,7 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function index()
     {

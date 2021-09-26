@@ -55,7 +55,7 @@
                 </div>
                 <div class="header-btns ml-auto pr-2 ml-lg-9 d-none d-xs-flex">
                     <a class="btn btn-transparent-2 btn-small border-0 font-size-5 font-weight-normal text-periwinkle-gray focus-reset mr-6" href="{{ route('login') }}">
-                        Inicia Sesión
+                        Iniciar Sesión
                     </a>
                     <a class="btn btn-2 btn-turquoise border border-turquoise font-size-5 text-firefly" href="{{ route('register') }}">
                         Registrate ahora

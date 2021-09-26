@@ -145,5 +145,12 @@
     <orderEntry type="library" name="axios" level="application" />
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="jquery-3.6.0" level="application" />
+    <orderEntry type="library" name="jquery-3.6.0" level="application" />
+    <orderEntry type="library" name="axios" level="application" />
+    <orderEntry type="library" name="select2" level="application" />
+    <orderEntry type="library" name="all" level="application" />
+    <orderEntry type="library" name="popper.js" level="application" />
+    <orderEntry type="library" name="@popperjs" level="application" />
+    <orderEntry type="library" name="bootstrap4-toggle" level="application" />
   </component>
 </module>

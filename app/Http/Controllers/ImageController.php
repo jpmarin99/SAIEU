@@ -56,25 +56,25 @@ class ImageController extends Controller
             'grupo' => 'required',
         ]);
 
-            $image_path = $request->image_path;
-            $description = $request->description;
-            $grupo = $request->grupo;
-            $id_user = $request->id_user;
+        $image_path = $request->image_path;
+        $description = $request->description;
+        $grupo = $request->grupo;
+        $id_user = $request->id_user;
 
-            $image = new Image();
-            $image->image_path = null;
-            $image->description = $description;
-            $image->grupo= $grupo;
-            $image->fk_id_user = $id_user;
+        $image = new Image();
+        $image->image_path = null;
+        $image->description = $description;
+        $image->grupo= $grupo;
+        $image->fk_id_user = $id_user;
 
-            //Subir imagen
-            if($image_path){
-                $image_path_name = time().$image_path->getClientOriginalName();
-                Storage::disk('gcs')->put($image_path_name,File::get($image_path));
-                $image->image_path = $image_path_name;
-            }
+        //Subir imagen
+        if($image_path){
+            $image_path_name = time().$image_path->getClientOriginalName();
+            Storage::disk('images')->put($image_path_name,File::get($image_path));
+            $image->image_path = $image_path_name;
+        }
 
-            $image->save();
+        $image->save();
         //Envío de notificaciones push a una aplicación Android
         $SERVER_API_KEY = 'AAAA9zOkRgY:APA91bGFLkuWyjgKjBhJ_p7a5imZJ4l2jKU1jKK6OirkH7Qz9ZwdfyXOEpK9vJAYmGz685tYU3UGSYluJFwpHU1bxeWjX30PfinSwMYmJRe9LdU-Zq4U0867Ygy-wFrC7XVDiRkeOEzm';
 
@@ -117,7 +117,7 @@ class ImageController extends Controller
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -198,10 +198,10 @@ class ImageController extends Controller
         $image->grupo= $grupo;
 
 
-         //Subir imagen
-         if($image_path){
+        //Subir imagen
+        if($image_path){
             $image_path_name = time().$image_path->getClientOriginalName();
-            Storage::disk('gcs')->put($image_path_name,File::get($image_path));
+            Storage::disk('images')->put($image_path_name,File::get($image_path));
             $image->image_path = $image_path_name;
         }
 
@@ -219,19 +219,19 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-       $user = \Auth::user();
-       $image = Image::find($id);
-       $comments = Comment::where('fk_id_image', '=', $id)->get();
-       $likes = Like::where('fk_id_image', '=', $id)->get();
+        $user = \Auth::user();
+        $image = Image::find($id);
+        $comments = Comment::where('fk_id_image', '=', $id)->get();
+        $likes = Like::where('fk_id_image', '=', $id)->get();
 
-        if($user && $image &&$image->user->id_user == $user->id_user ){
+        if($user && $image &&$image->user->id_user === $user->id_user ){
 
             //Eliminar comentarios
-                if($comments && count($comments) > 0){
-                    foreach($comments as $comment){
-                        $comment->delete();
-                    }
+            if($comments && count($comments) > 0){
+                foreach($comments as $comment){
+                    $comment->delete();
                 }
+            }
             //Eliminar likes
 
             if($likes && count($likes) > 0){
@@ -242,7 +242,7 @@ class ImageController extends Controller
 
             //Eliminar fichero de imagen
 
-            Storage::disk('gcs')->delete($image->image_path);
+            Storage::disk('images')->delete($image->image_path);
 
             //Eliminar registro de imagen
 
@@ -259,7 +259,7 @@ class ImageController extends Controller
     }
 
     public function getImage($fileName){
-        $file  = Storage::disk('gcs')->get($fileName);
+        $file  = Storage::disk('images')->get($fileName);
 
         return response($file, 200);
     }

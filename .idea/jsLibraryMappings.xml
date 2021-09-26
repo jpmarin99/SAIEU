@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{axios, jquery, jquery-3.6.0, select2}" />
+    <file url="PROJECT" libraries="{@popperjs, all, axios, bootstrap4-toggle, jquery-3.6.0, popper.js, select2}" />
   </component>
 </project>

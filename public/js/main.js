@@ -46,7 +46,7 @@ window.addEventListener("load", function() {
             dislike();
         });
 
-    };
+    }
     like();
 
     //Funcion para dar like a la publicación

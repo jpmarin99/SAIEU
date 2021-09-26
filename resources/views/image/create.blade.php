@@ -18,15 +18,19 @@
 
                         <div class="form-group row">
 
-                            <label for="image_path" class="col-md-3 col-form-label text-md-right">Imagen</label>
+                            <label for="image_path" class="col-md-3 col-form-label text-md-right"><i class="fa fa-image fa-fw"></i> Imagen</label>
 
+                            <span>
+
+
+                            </span>
                             <div class="col-md-7">
-                                <input id="image_path" name="image_path" type="file" class="form-control @error('image_path') is-invalid @enderror" required>
+                                <input id="image_path" name="image_path"  type="file" class="form-control @error('image_path') is-invalid @enderror" required>
                             </div>
                         </div>
                         <div class="form-group row">
 
-                            <label for="description" class="col-md-3 col-form-label text-md-right">Descripción</label>
+                            <label for="description" class="col-md-3 col-form-label text-md-right"><i class="far fa-edit"></i>Descripción</label>
 
                             <div class="col-md-7">
                                 <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror" required></textarea>
@@ -44,7 +48,7 @@
                         </div>
 
                     <div class="form-group col-md-4">
-                        <label for="inputGrupo">Asignado a</label>
+                        <label for="inputGrupo"><i class="fas fa-users"></i>Asignado a</label>
                         <script>
                             $(document).ready(function() {
                                 $('.js-example-basic-single').select2();

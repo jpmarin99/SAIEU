@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\User;
@@ -65,7 +66,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -101,7 +102,7 @@ class UserController extends Controller
         //Conseguir el usuario identificado en este caso lo traemos del formulario
         $id_user = $request->input('id_user');
 
-        $user = \Auth::user();
+        $user = Auth::user();
 
         //Validamos cada campo del formulario, en vista de que estoy usando campos ID customizados pues tambien estoy usando reglas de validacion customizadas como es el caso de nickRepetido e emailRepetido
         $validate = $this->validate($request, [
@@ -134,7 +135,7 @@ class UserController extends Controller
             $image_path = $request->file('image_path');
             if($image_path){
                 $image_path_name = time().$image_path->getClientOriginalName();
-                Storage::disk('gcs')->put($image_path_name,File::get($image_path));
+                Storage::disk('users')->put($image_path_name,File::get($image_path));
                 $user->image = $image_path_name;
             }
 
@@ -148,7 +149,7 @@ class UserController extends Controller
 
     public function getImage($fileName){
 
-        $file  = Storage::disk('gcs')->get($fileName);
+        $file  = Storage::disk('users')->get($fileName);
 
         return response($file, 200);
     }
