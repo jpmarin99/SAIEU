@@ -26,7 +26,14 @@ class ImageController extends Controller
      */
     public function index()
     {
-        //
+        return response([
+            'images' => Image::orderBy('created_at', 'desc')->with('user:id,name,image')->withCount('comments', 'likes')
+                ->with('likes', function($like){
+                    return $like->where('user_id', auth()->user()->id)
+                        ->select('id', 'user_id', 'post_id')->get();
+                })
+                ->get()
+        ], 200);
     }
 
     /**
@@ -125,6 +132,12 @@ class ImageController extends Controller
 
         $response = curl_exec($ch);
         //dd($response);
+
+        //return response([
+          //  'message' => 'Post created.',
+        //    'image' => $image,
+       // ], 200);
+
         return redirect()->route('home')->with('message', 'El aviso ha sido publicado correctamente',$response);
 
 
@@ -173,6 +186,7 @@ class ImageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
+
     {
         $validatedData = $request->validate([
             'image_path' => ['image' ,'mimes:jpg,jpeg,png,gif'],
@@ -208,7 +222,6 @@ class ImageController extends Controller
         $image->update();
 
         return redirect()->route('home')->with('message', 'Aviso actualizado con exito');
-
     }
 
     /**

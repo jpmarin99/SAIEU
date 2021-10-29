@@ -8,11 +8,11 @@
         cuerpoweb.classList.toggle("oscuro");
     }
 
-    $('.dropdown').click(function(){
-
-        $('.dropdown-menu').toggleClass('show');
-
+    tippy('#btn_users', {
+        content: "I'm a Tippy tooltip!",
     });
+
+
 </script>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -24,7 +24,8 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/main.js') }}"></script>
 
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Fonts -->
@@ -82,13 +83,13 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{route('user.index')}}" class="nav-link"><i class="fas fa-users"></i></a>
+                            <a href="{{route('user.index')}}" id="btn_users" class="nav-link"><i class="fas fa-users"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('image.create')}}" class="nav-link"><i class="fas fa-file-invoice"></i></a>
+                            <a href="{{route('image.create')}}" id="btn_avisos" class="nav-link"><i class="fas fa-file-invoice"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('print')}}" class="nav-link"><i class="fas fa-file-pdf"></i></a>
+                            <a href="{{route('print')}}" id="btn_pdf" class="nav-link"><i class="fas fa-file-pdf"></i></a>
                         </li>
 
                         <li class="nav-item dropdown">

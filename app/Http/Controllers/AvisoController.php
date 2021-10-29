@@ -21,82 +21,17 @@ class AvisoController extends Controller
      */
     public function index()
     {
-        //
-    }
-    public function getAllimages() {
-        $images = Image::get()->toJson(JSON_PRETTY_PRINT);
-        return response($images, 200);
-    }
 
-    public function getimage($id_image) {
-        if (Image::where('id_image', $id_image)->exists()) {
-            $image = Image::where('id_image', $id_image ,'/api/avisos')->get()->toJson(JSON_PRETTY_PRINT);
-            return response($image, 200);
-        } else {
-            return response()->json([
-                "message" => "Aviso no encontrado"
-            ], 404);
-        }
-    }
+        return response([
+            'images' => Image::orderBy('created_at', 'desc')->withCount('comments', 'likes')
 
-    public function createimage(Request $request) {
-        $fk_id_user = $request->fk_id_user;
-        $image_path = $request->image_path;
-        $description = $request->description;
-        $grupo = $request->grupo;
-
-
-        $image = new Image();
-        $image->fk_id_user = $fk_id_user;
-        $image->image_path = null;
-        $image->description = $description;
-        $image->grupo= $grupo;
-
-        //subir imagen
-        if($image_path){
-
-            $image_path_name = time().$image_path->getClientOriginalName();
-            Storage::disk('images')->put($image_path_name,File::get($image_path));
-            $image->image_path = $image_path_name;
-        }
-
-        $image->save();
-        return response()->json([
-            "message" => "Aviso publicado correctamente"
+                ->get()
         ], 200);
 
 
-    }
-    public function updateimage(Request $request, $id_image) {
-        if (Image::where('id_image', $id_image)->exists()) {
-            $image = Image::find($id_image);
 
-            $image->description = is_null($request->description) ? $image->description : $image->description;
-            $image->grupo = is_null($request->grupo) ? $image->grupo : $image->grupo;
-            $image->update();
 
-            return response()->json([
-                "message" => "Aviso actualizado correctamente"
-            ], 200);
-        } else {
-            return response()->json([
-                "message" => "Aviso no encontrado"
-            ], 404);
-        }
-    }
-    public function deleteimage ($id_image) {
-        if(Image::where('id_image', $id_image)->exists()) {
-            $image = Image::find($id_image);
-            $image->delete();
 
-            return response()->json([
-                "message" => "Aviso eliminado"
-            ], 202);
-        } else {
-            return response()->json([
-                "message" => "Aviso no encontrado "
-            ], 404);
-        }
     }
 
 
@@ -117,13 +52,13 @@ class AvisoController extends Controller
         $image_path = $request->image_path;
         $description = $request->description;
         $grupo = $request->grupo;
-        $id_user = $request->id_user;
+        $fk_id_user = $request->fk_id_user;
 
         $image = new Image();
         $image->image_path = null;
         $image->description = $description;
         $image->grupo= $grupo;
-        $image->fk_id_user = $id_user;
+        $image->fk_id_user = $fk_id_user;
 
         //Subir imagen
         if($image_path){
@@ -133,6 +68,10 @@ class AvisoController extends Controller
         }
 
         $image->save();
+        return response([
+            'message' => 'Aviso creado.',
+            'images' => $image,
+        ], 200);
     }
 
     /**
@@ -141,11 +80,11 @@ class AvisoController extends Controller
      * @param  int  $id
      * @return JsonResponse
      */
-    public function show($id)
+    public function show($id_image)
     {
-        $image = Image::find($id);
-
-        return response()->json($image);
+        return response([
+            'images' => Image::where('id_image', $id_image)->withCount('comments', 'likes')->get()
+        ], 200);
     }
 
     /**
@@ -155,9 +94,51 @@ class AvisoController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_image)
     {
-        //
+        $attrs = $request->validate([
+            'image_path' => ['image', 'mimes:jpg,jpeg,png,gif'],
+            'description' => ['string', 'max:255'],
+            'grupo' => 'required',
+        ]);
+
+        if (Image::where('id_image', $id_image)->exists()) {
+            $image = Image::find($id_image);
+
+            $id_imagen = $request->input('id_imagen');
+            $description = $request->input('description');
+            $grupo = $request->input('grupo');
+            $image_path = null;
+
+            //Verificar si ha llegado una imagen
+            if($request->image_path != null){
+
+                $image_path = $request->image_path;
+            }
+
+            if($image_path){
+                $image_path_name = time().$image_path->getClientOriginalName();
+                Storage::disk('images')->put($image_path_name,File::get($image_path));
+                $image->image_path = $image_path_name;
+            }
+
+            $image->update([
+               // 'image_path' => $attrs['image_path'],
+                'description' => $attrs['description'],
+                'grupo' => $attrs['grupo']
+            ]);
+
+            return response([
+                'message' => 'Aviso actualizado.',
+                'images' => $image,
+            ], 200);
+
+        }
+        else {
+            return response([
+                'message' => 'Aviso no encontrado.',
+            ], 404);
+        }
     }
 
     /**
@@ -168,6 +149,24 @@ class AvisoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $image = Image::find($id);
+
+        if(!$image)
+        {
+            return response([
+                'message' => 'Aviso no encontrado.'
+            ], 403);
+        }
+
+
+
+        $image->comments()->delete();
+        $image->likes()->delete();
+        $image->delete();
+
+        return response([
+            'message' => 'Aviso eliminado.'
+        ], 200);
     }
+
 }

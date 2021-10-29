@@ -133,7 +133,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" name="btnK" class="btn btn-primary">
                                     Registrarse
                                 </button>
                             </div>
