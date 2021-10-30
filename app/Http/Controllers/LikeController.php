@@ -28,9 +28,9 @@ class LikeController extends Controller
             $like->fk_id_image = (int)$id_image;
             $like->save();
 
-            return response()->json([
-                'like' => $like
-            ]);
+            return response([
+                'message' => 'Liked'
+            ], 200);
         }else{
             return response()->json([
                 'message' => 'El like ya existe',

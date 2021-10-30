@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use Illuminate\Validation\Rule;
@@ -13,11 +15,12 @@ use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Laravel\Sanctum\HasApiTokens;
 use Symfony\Component\VarDumper\VarDumper;
 
 class UserController extends Controller
 {
-
+    use HasApiTokens, HasFactory, Notifiable;
     public function __construct()
     {
         $this->middleware('auth');
