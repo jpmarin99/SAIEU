@@ -13,6 +13,7 @@
         "ext-json": "*",
         "barryvdh/laravel-dompdf": "^0.9.0",
         "fideloper/proxy": "^4.0",
+        "josiasmontag/laravel-recaptchav3": "^0.6.0",
         "kreait/firebase-php": "^5.20",
         "kreait/laravel-firebase": "^3.1",
         "laravel-notification-channels/fcm": "~2.0",
@@ -20,6 +21,7 @@
         "laravel/tinker": "^2.0",
         "laraveles/spanish": "^1.5",
         "laravelium/sitemap": "6.*",
+        "mews/captcha": "^3.2",
         "superbalist/laravel-google-cloud-storage": "^2.2"
     },
     "require-dev": {

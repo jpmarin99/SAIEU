@@ -20,7 +20,7 @@ use Symfony\Component\VarDumper\VarDumper;
 
 class UserController extends Controller
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use Notifiable;
     public function __construct()
     {
         $this->middleware('auth');

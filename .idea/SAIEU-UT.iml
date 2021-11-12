@@ -134,18 +134,18 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/scrivo/highlight.php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-factory" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpstan/phpstan" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/josiasmontag/laravel-recaptchav3" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/intervention/image" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mews/captcha" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="axios" level="application" />
-    <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="jquery-3.6.0" level="application" />
     <orderEntry type="library" name="@popperjs" level="application" />
     <orderEntry type="library" name="@popperjs/core" level="application" />
     <orderEntry type="library" name="select2" level="application" />
     <orderEntry type="library" name="axios" level="application" />
-    <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="jquery-3.6.0" level="application" />
     <orderEntry type="library" name="jquery-3.6.0" level="application" />
     <orderEntry type="library" name="axios" level="application" />
@@ -155,5 +155,6 @@
     <orderEntry type="library" name="@popperjs" level="application" />
     <orderEntry type="library" name="bootstrap4-toggle" level="application" />
     <orderEntry type="library" name="tippy.js" level="application" />
+    <orderEntry type="library" name="api" level="application" />
   </component>
 </module>

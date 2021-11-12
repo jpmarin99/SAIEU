@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\image;
 use App\Http\Controllers\PushNotificationController;
 use Illuminate\Support\Facades\Storage;
@@ -77,7 +78,7 @@ Route::get('/sitemap', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/reload-captcha', [RegisterController::class, 'reloadCaptcha']);
  // Rutas de usuario
 Route::get('/user/all/{search?}', 'UserController@index')->name('user.index');
 Route::get('/user/config', 'UserController@config')->name('config');

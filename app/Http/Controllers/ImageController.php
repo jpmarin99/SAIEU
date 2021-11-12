@@ -134,9 +134,9 @@ class ImageController extends Controller
         //dd($response);
 
         //return response([
-          //  'message' => 'Post created.',
+        //  'message' => 'Post created.',
         //    'image' => $image,
-       // ], 200);
+        // ], 200);
 
         return redirect()->route('home')->with('message', 'El aviso ha sido publicado correctamente',$response);
 

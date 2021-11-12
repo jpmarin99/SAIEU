@@ -56,7 +56,13 @@ class RegisterController extends Controller
             'nick' => ['required', 'string', 'max:200'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'g-recaptcha-response' => 'required|recaptchav3:register,0.5',
+            'captcha' => 'required|captcha'
         ]);
+    }
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img()]);
     }
 
     /**
@@ -75,6 +81,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'api_token' => Str::random(80),
+
         ]);
     }
 }

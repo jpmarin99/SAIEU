@@ -42,7 +42,7 @@ class UsuarioController extends Controller
           //'api_token' => Str::random(80),
         ]);
 
-        //return user & token in response
+        //return user
         return response([
             'message' => 'Usuario creado correctamente',
             'user' => $user,        // 'token' => $user->api_token,
