@@ -14,12 +14,14 @@
                 "url": "https://github.com/barryvdh/laravel-dompdf.git",
                 "reference": "5b99e1f94157d74e450f4c97e8444fcaffa2144b"
             },
+
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/5b99e1f94157d74e450f4c97e8444fcaffa2144b",
                 "reference": "5b99e1f94157d74e450f4c97e8444fcaffa2144b",
                 "shasum": ""
             },
+
             "require": {
                 "dompdf/dompdf": "^1",
                 "illuminate/support": "^5.5|^6|^7|^8",
