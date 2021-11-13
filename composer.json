@@ -22,6 +22,7 @@
         "laraveles/spanish": "^1.5",
         "laravelium/sitemap": "6.*",
         "mews/captcha": "^3.2",
+        "silviolleite/laravelpwa": "^2.0",
         "superbalist/laravel-google-cloud-storage": "^2.2"
     },
     "require-dev": {

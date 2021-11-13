@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SAIEU-UT</title>
     <link rel="shortcut icon" href="images/png/favicon.png" type="image/x-icon">
+    <link rel="manifest" href="/manifest.json">
+
     <!-- Bootstrap , fonts & icons  -->
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="fonts/icon-font/css/style.css">

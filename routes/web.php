@@ -74,6 +74,9 @@ Route::get('/sitemap', function () {
 
 
 });
+Route::get('/offline', function () {
+    return view('vendor.laravelpwa.offline');
+});
 
 Auth::routes();
 
