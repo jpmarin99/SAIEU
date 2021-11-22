@@ -7,6 +7,7 @@ use App\Comment;
 use App\Like;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
@@ -31,9 +32,14 @@ class ImageController extends Controller
                 ->with('likes', function($like){
                     return $like->where('user_id', auth()->user()->id)
                         ->select('id', 'user_id', 'post_id')->get();
-                })
-                ->get()
-        ], 200);
+                }),
+
+        ]);
+
+
+
+
+
     }
 
     /**
@@ -65,13 +71,13 @@ class ImageController extends Controller
 
         $image_path = $request->image_path;
         $description = $request->description;
-        $grupo = $request->grupo;
+        $groups = $request->group;
         $id_user = $request->id_user;
 
         $image = new Image();
         $image->image_path = null;
         $image->description = $description;
-        $image->grupo= $grupo;
+        $image->grupo= $groups;
         $image->fk_id_user = $id_user;
 
         //Subir imagen

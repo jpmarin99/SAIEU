@@ -56,10 +56,15 @@
                         </script>
                         <select id="grupo" name="grupo" class="js-example-basic-single">
                             <option selected>Todos</option>
+
                             <option value="IDGDS9">IDGS9</option>
                             <option value="MECA2020">MECA2020</option>
                             <option value="INM2020">INM2020</option>
                             <option value="GAS2020">GAS2020</option>
+                          {{-- @foreach($groups as $grupo)
+                                <option value="{{$grupo->id_Grupo}}">{{$grupo->Nomenclatura}}</option>
+                            @endforeach  --}}
+
                         </select>
                     </div>
                         <div class="form-group row mb-0">

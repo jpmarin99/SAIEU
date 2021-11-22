@@ -16,6 +16,7 @@ use App\image;
 use App\Http\Controllers\PushNotificationController;
 use Illuminate\Support\Facades\Storage;
 
+//Envio de notificaciones
 Route::get('/', function () {
     $SERVER_API_KEY = 'AAAA9zOkRgY:APA91bGFLkuWyjgKjBhJ_p7a5imZJ4l2jKU1jKK6OirkH7Qz9ZwdfyXOEpK9vJAYmGz685tYU3UGSYluJFwpHU1bxeWjX30PfinSwMYmJRe9LdU-Zq4U0867Ygy-wFrC7XVDiRkeOEzm';
 
@@ -74,6 +75,7 @@ Route::get('/sitemap', function () {
 
 
 });
+//Ruta Offline
 Route::get('/offline', function () {
     return view('vendor.laravelpwa.offline');
 });
@@ -82,6 +84,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/reload-captcha', [RegisterController::class, 'reloadCaptcha']);
+
  // Rutas de usuario
 Route::get('/user/all/{search?}', 'UserController@index')->name('user.index');
 Route::get('/user/config', 'UserController@config')->name('config');

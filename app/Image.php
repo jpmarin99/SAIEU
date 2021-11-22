@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Image extends Model
 {
@@ -14,6 +15,13 @@ class Image extends Model
 
     protected $fillable = ['fk_id_user', 'image_path', 'description','grupo', 'created_at', 'updated_at'];
 
+    public function groups()
+    {
+        $groups = DB::table('users')
+            ->join('groups', 'users.grupo', '=', 'groups.id_Grupo')
+            ->select( 'users.*','groups.Nomenclatura')
+            ->get();
+    }
 
 
     public function comments(){

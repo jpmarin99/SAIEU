@@ -1,0 +1,19 @@
+.blue-green-gradient-color {}
+
+.main_image .card-body {
+    padding: 0px;
+    margin: 0px;
+    background-color: #343a40;
+}
+
+.main_image .card-body img {
+    padding: 0px;
+    margin: 0px;
+    background-color: #343a40;
+}
+.oscuro {
+    background-color: #343a40;
+    color: #f1eded;
+    text-decoration-color: blue;
+
+}
