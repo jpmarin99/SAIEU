@@ -32,22 +32,16 @@
         <div class="container-fluid-fluid">
             <nav class="navbar site-navbar offcanvas-active navbar-expand-lg px-0">
                 <!-- Brand Logo-->
-                <div class="brand-logo d-inline-block">
-                    <a href="#">
-                        <!-- light version logo (logo must be black)-->
-                        <img src="./images/png/logo-green-white.png" alt="">
-                        <!-- Dark version logo (logo must be White)-->
-                    </a>
-                </div>
+
 
                 <div class="collapse navbar-collapse" id="mobile-menu">
                     <div class="navbar-nav-wrapper">
                         <ul class="navbar-nav main-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="#features">Caracteristicas</a>
+                                <a class="nav-link" href="#features">Características</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="http://www.utchetumal.edu.mx/index/" role="button" aria-expanded="false">Tramites de la universidad</a>
+                                <a class="nav-link" href="http://www.utchetumal.edu.mx/index/" role="button"  target="_blank" aria-expanded="false">Trámites de la universidad</a>
                             </li>
                         </ul>
                     </div>
@@ -130,7 +124,7 @@
                             <!-- <img src="image/l1/svg/chat-46.svg" alt=""> -->
                         </div>
                         <h4 class="font-size-19 text-default-color-2 font-weight-bold mb-6 line-height-1p63 font-family-5">Rápida Comunicación</h4>
-                        <p class="text-dovegray font-size-7 font-family-5 mb-8">Aclara tus dudas con nuestro Chatbox Integrado :)</p>
+                        <p class="text-dovegray font-size-7 font-family-5 mb-8">Aclara tus dudas con nuestros comentarios integrados</p>
                         <!-- card texts start -->
                     </div>
                 </div>
@@ -144,7 +138,7 @@
                             <!-- <img src="image/l1/svg/settings-gear-64.svg" alt=""> -->
                         </div>
                         <h4 class="font-size-19 text-default-color-2 font-weight-bold mb-6 line-height-1p63 font-family-5">Todo en un solo lugar</h4>
-                        <p class="text-dovegray font-size-7 font-family-5 mb-8">Crea avisos y obten avisos en nuestra app movíl.</p>
+                        <p class="text-dovegray font-size-7 font-family-5 mb-8">Crea avisos y obtén avisos en nuestra app movíl.</p>
                         <!-- card texts start -->
                     </div>
                 </div>
@@ -209,22 +203,22 @@
     <div class="video-area section-bg-img-3 pt-lg-23 pt-19 pb-lg-21 pb-15">
         <div class="container">
 
-                <script>
-                    function showTime(){
-                        myDate = new Date();
-                        hours = myDate.getHours();
-                        minutes = myDate.getMinutes();
-                        seconds = myDate.getSeconds();
-                        if (hours < 10) hours = 0 + hours;
-                        if (minutes < 10) minutes = "0" + minutes;
-                        if (seconds < 10) seconds = "0" + seconds;
-                        $("#HoraActual").text(hours+ ":" +minutes+ ":" +seconds);
-                        setTimeout("showTime()", 1000);
+            <script>
+                function showTime(){
+                    myDate = new Date();
+                    hours = myDate.getHours();
+                    minutes = myDate.getMinutes();
+                    seconds = myDate.getSeconds();
+                    if (hours < 10) hours = 0 + hours;
+                    if (minutes < 10) minutes = "0" + minutes;
+                    if (seconds < 10) seconds = "0" + seconds;
+                    $("#HoraActual").text(hours+ ":" +minutes+ ":" +seconds);
+                    setTimeout("showTime()", 1000);
 
-                    }
+                }
 
-                    var f = new Date();
-                    document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
+                var f = new Date();
+                document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
 
             </script>
             <h1 id="HoraActual"> </h1>

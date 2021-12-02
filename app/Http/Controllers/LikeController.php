@@ -2,83 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use Illuminate\Http\Request;
-use App\Like;
+use App\Models\Post;
+use App\Models\Like;
 
 class LikeController extends Controller
 {
-
-    public function __construct()
+    // like or unlike
+    public function likeOrUnlike($id)
     {
-        $this->middleware('auth');
-    }
+        $post = Post::find($id);
 
-    public function like($id_image){
+        if(!$post)
+        {
+            return response([
+                'message' => 'Post not found.'
+            ], 403);
+        }
 
-        $user = Auth::user();
-        //Condicion para ver si ya existe el like y no duplicarlo
+        $like = $post->likes()->where('user_id', auth()->user()->id)->first();
 
-        $isset_like = Like::where('fk_id_user', "=" ,$user->id_user)->where('fK_id_image', "=" ,$id_image)->count();
-
-        if($isset_like == 0){
-
-            $like = new Like();
-            $like->fk_id_user = $user->id_user;
-            $like->fk_id_image = (int)$id_image;
-            $like->save();
+        // if not liked then like
+        if(!$like)
+        {
+            Like::create([
+                'post_id' => $id,
+                'user_id' => auth()->user()->id
+            ]);
 
             return response([
                 'message' => 'Liked'
             ], 200);
-        }else{
-            return response()->json([
-                'message' => 'El like ya existe',
-            ]);
         }
+        // else dislike it
+        $like->delete();
 
-
-
-
-    }
-
-    public function dislike($id_image){
-
-        $user = Auth::user();
-        //Condicion para ver si ya existe el like y no duplicarlo
-
-        $like = Like::where('fk_id_user', "=" ,$user->id_user)->where('fK_id_image', "=" ,$id_image)->first();
-
-        if($like){
-
-            $like->delete();
-
-            return response()->json([
-                'like' => $like,
-                'message' => 'No te gusta esta publicación',
-            ]);
-        }else{
-            return response()->json([
-                'message' => '',
-            ]);
-        }
-
-    }
-
-    public function mis_likes(){
-
-        $id_user = Auth::user()->id_user;
-
-        $likes = Like::where('fk_id_user', '=', $id_user)
-        ->orderBy('id_like', 'desc')
-        ->paginate(5);
-
-        //var_dump($likes );
-        //die();
-
-        return view ('like.mislikes',[
-            'likes' =>$likes,
-        ]);
-
+        return response([
+            'message' => 'Disliked'
+        ], 200);
     }
 }

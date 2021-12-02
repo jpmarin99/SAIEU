@@ -2,171 +2,107 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\JsonResponse;
+use App\Models\Post;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use App\Image;
-use App\Comment;
-use App\Like;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class AvisoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
      */
     public function index()
     {
-
-        return response([
-            'images' => Image::orderBy('created_at', 'desc')->withCount('comments', 'likes')
-
-                ->get()
-        ], 200);
-
-
-
-
-
+        $images = Post::orderBy('created_at', 'desc')->with('user:id,name,image')->withCount('comments', 'likes')
+            ->with('likes', function ($like) {
+                return $like->where('user_id', auth()->user()->id)
+                    ->select('id', 'user_id', 'post_id')->get();
+            })->paginate(10);
+        return view('avisos.index', compact('images'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Response
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'image_path' => ['required','image' ,'mimes:jpg,jpeg,png,gif'],
-            'description' => ['required', 'string','max:255'],
-            'grupo' => 'required',
-        ]);
-
-        $image_path = $request->image_path;
-        $description = $request->description;
-        $grupo = $request->grupo;
-        $fk_id_user = $request->fk_id_user;
-
-        $image = new Image();
-        $image->image_path = null;
-        $image->description = $description;
-        $image->grupo= $grupo;
-        $image->fk_id_user = $fk_id_user;
-
-        //Subir imagen
-        if($image_path){
-            $image_path_name = time().$image_path->getClientOriginalName();
-            Storage::disk('images')->put($image_path_name,File::get($image_path));
-            $image->image_path = $image_path_name;
-        }
-
-        $image->save();
-        return response([
-            'message' => 'Aviso creado.',
-            'images' => $image,
-        ], 200);
+        //
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return JsonResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|View|\Illuminate\Http\Response
      */
-    public function show($id_image)
+    public function show($id)
     {
-        return response([
-            'images' => Image::where('id_image', $id_image)->withCount('comments', 'likes')->get()
-        ], 200);
+        $image = Post::find($id);
+
+        return view('image.detail')->with('image', $image);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_image)
+    public function update(Request $request, $id)
     {
-        $attrs = $request->validate([
-            'image_path' => ['image', 'mimes:jpg,jpeg,png,gif'],
-            'description' => ['string', 'max:255'],
-            'grupo' => 'required',
-        ]);
-
-        if (Image::where('id_image', $id_image)->exists()) {
-            $image = Image::find($id_image);
-
-            $id_imagen = $request->input('id_imagen');
-            $description = $request->input('description');
-            $grupo = $request->input('grupo');
-            $image_path = null;
-
-            //Verificar si ha llegado una imagen
-            if($request->image_path != null){
-
-                $image_path = $request->image_path;
-            }
-
-            if($image_path){
-                $image_path_name = time().$image_path->getClientOriginalName();
-                Storage::disk('images')->put($image_path_name,File::get($image_path));
-                $image->image_path = $image_path_name;
-            }
-
-            $image->update([
-               // 'image_path' => $attrs['image_path'],
-                'description' => $attrs['description'],
-                'grupo' => $attrs['grupo']
-            ]);
-
-            return response([
-                'message' => 'Aviso actualizado.',
-                'images' => $image,
-            ], 200);
-
-        }
-        else {
-            return response([
-                'message' => 'Aviso no encontrado.',
-            ], 404);
-        }
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $image = Image::find($id);
-
-        if(!$image)
-        {
-            return response([
-                'message' => 'Aviso no encontrado.'
-            ], 403);
-        }
-
-
-
-        $image->comments()->delete();
-        $image->likes()->delete();
-        $image->delete();
-
-        return response([
-            'message' => 'Aviso eliminado.'
-        ], 200);
+        //
     }
 
+    public function getImage($image,$path = 'public')
+    {
+
+        Storage::disk($path)->get($image);
+
+
+        return response($image, 200);
+    }
 }

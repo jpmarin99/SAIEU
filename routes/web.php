@@ -12,10 +12,25 @@
 */
 
 use App\Http\Controllers\Auth\RegisterController;
-use App\image;
-use App\Http\Controllers\PushNotificationController;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AvisoController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\HomeController;
 
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PdfController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
+use App\Models\Post;
+use App\Http\Controllers\PushNotificationController;
+
+
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+App::setLocale("es");
 //Envio de notificaciones
 Route::get('/', function () {
     $SERVER_API_KEY = 'AAAA9zOkRgY:APA91bGFLkuWyjgKjBhJ_p7a5imZJ4l2jKU1jKK6OirkH7Qz9ZwdfyXOEpK9vJAYmGz685tYU3UGSYluJFwpHU1bxeWjX30PfinSwMYmJRe9LdU-Zq4U0867Ygy-wFrC7XVDiRkeOEzm';
@@ -68,7 +83,7 @@ Route::get('/', function () {
     return view('welcome')->with($response);
 });
 
-Route::name('print')->get('/imprimir', 'PdfController@imprimir');
+Route::name('print')->get('/imprimir', [PdfController::class, 'imprimir']);
 
 Route::get('/sitemap', function () {
     return view('sitemap');
@@ -79,36 +94,76 @@ Route::get('/sitemap', function () {
 Route::get('/offline', function () {
     return view('vendor.laravelpwa.offline');
 });
+Route::get('/reload-captcha', [RegisterController::class, 'reloadCaptcha']);
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+Route::get('storage-link',function(){
+    Artisan::call('storage:link');
+});
+
+
+// Protected Routes
+Route::group(['middleware' => ['auth:sanctum']], function() {
+
+
+
+// Rutas de usuario
+    Route::get('/user/all/{search?}', 'UserController@index')->name('user.index');
+    Route::get('/user/config', 'UserController@config')->name('user.config');
+    Route::post('/user/edit', 'UserController@update')->name('update_user');
+    Route::get('/my_profile/{id}', 'UserController@profile')->name('myprofile');
+    //Route::get('/user/avatar/{filename?}', 'UserController@getImage')->name('user.image');
+
+
+
+    //Rutas de comentarios
+    Route::post('/comentario/store', 'ComentarioController@store')->name('comment.store');
+    Route::get('/comentario/delete/{id}', 'ComentarioController@destroy')->name('comment.destroy');
+
+
+
+    // User
+
+    Route::get('/user', [AuthController::class, 'user']);
+    Route::put('/user', [AuthController::class, 'update']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+
+    Route::get('/avisos', 'AvisoController@index')->name('avisos.index');
+    //Route::get('/posts/{id}', 'AvisoController@getImage')->name('image.get');
+
+    // Post
+    Route::get('/posts/{id}', 'PostController@showpost')->name('posts.getweb'); // get single post
+
+    Route::get('/posts', [PostController::class, 'index'])->name('posts.index'); // all posts
+    Route::post('/posts/create', [PostController::class, 'store']); // create post
+
+    Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show'); // show post
+     // get single post
+    Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update'); // update post
+    Route::delete('/posts/{id}', [PostController::class, 'destroy']); // delete post
+
+    // Comment
+   // Route::get('/posts/{id}/comments', [CommentController::class, 'index']); // all comments of a post
+  //  Route::post('/posts/{id}/comments', [CommentController::class, 'store']); // create comment on a post
+   // Route::put('/comments/{id}', [CommentController::class, 'update']); // update a comment
+   // Route::delete('/comments/{id}', [CommentController::class, 'destroy']); // delete a comment
+
+    // Like
+    Route::post('/posts/{id}/likes', [LikeController::class, 'likeOrUnlike']);
+});// like or dislike back a post
+
+
+
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/reload-captcha', [RegisterController::class, 'reloadCaptcha']);
-
- // Rutas de usuario
-Route::get('/user/all/{search?}', 'UserController@index')->name('user.index');
-Route::get('/user/config', 'UserController@config')->name('config');
-Route::post('/user/edit', 'UserController@update')->name('update_user');
-Route::get('/my_profile/{id}', 'UserController@profile')->name('myprofile');
-Route::get('/user/avatar/{filename?}', 'UserController@getImage')->name('user.image');
-
 //Rutas de imagenes
 Route::get('/image/create', 'ImageController@create')->name('image.create');
 Route::post('/image/store', 'ImageController@store')->name('image.store');
-
-Route::get('/image/get/{filename?}', 'ImageController@getImage')->name('image.get');
 Route::get('/image/show/{id}', 'ImageController@show')->name('image.show');
-Route::get('/image/delete/{id}', 'ImageController@destroy')->name('image.delete');
 Route::get('/image/edit/{id}', 'ImageController@edit')->name('image.edit');
+Route::get('/image/delete/{id}', 'ImageController@destroy')->name('image.delete');
 Route::post('/image/update', 'ImageController@update')->name('image.update');
-
-//Rutas de comentarios
-Route::post('/comment/store', 'CommentController@store')->name('comment.store');
-Route::get('/comment/delete/{id}', 'CommentController@destroy')->name('comment.destroy');
-
-//Rutas de Likes
-Route::get('/like/{id}', 'LikeController@like')->name('like.save');
-Route::get('/dislike/{id}', 'LikeController@dislike')->name('dislike');
-Route::get('/mis_likes', 'LikeController@mis_likes')->name('mislikes');
-
-
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/reload-captcha', [RegisterController::class, 'reloadCaptcha']);

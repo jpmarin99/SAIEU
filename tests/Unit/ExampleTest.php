@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\User;
 use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase
@@ -12,9 +11,8 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function testBasicTest()
+    public function test_example()
     {
-        $this->assertClassHasAttribute('name', User::class);
-        //$this->assertTrue(true);
+        $this->assertTrue(true);
     }
 }

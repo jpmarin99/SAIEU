@@ -31,22 +31,22 @@ class emailRepetido implements Rule
         $id_user = auth()->user()->id_user;
 
         $user = DB::table('users')
-        ->select('email')
-        ->whereNotIn('id_user', array($id_user))
-        ->where('email', '=', $value)
-        ->get();
+            ->select('email')
+            ->whereNotIn('id_user', array($id_user))
+            ->where('email', '=', $value)
+            ->get();
 
         if(count($user) == 0){
             //echo 'No hay usuario registrados con ese nick';
-             //die();
-             return $valor;
-         }else{
-             $valor = false;
-             //echo 'Si hay usuario registrados con ese nick';
-             //die();
-             return $valor;
- 
-         }
+            //die();
+            return $valor;
+        }else{
+            $valor = false;
+            //echo 'Si hay usuario registrados con ese nick';
+            //die();
+            return $valor;
+
+        }
     }
 
     /**

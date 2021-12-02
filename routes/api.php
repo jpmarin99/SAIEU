@@ -1,8 +1,11 @@
 <?php
 
-use App\Http\Controllers\AvisoController;
-use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,28 +17,31 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+// Public routes
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-   // return $request->user()->id();
-//});
+// Protected Routes
+Route::group(['middleware' => ['auth:sanctum']], function() {
 
-//Rutas de la API de avisos
-    Route::get('/avisos', [AvisoController::class, 'index']); // all posts
-    Route::post('/avisos', [AvisoController::class, 'store']); // create post
-    Route::get('/avisos/{id_image}', [AvisoController::class, 'show']); // get single post
-    Route::put('/avisos/{id_image}', [AvisoController::class, 'update']); // update post
-    Route::delete('/avisos/{id_image}', [AvisoController::class, 'destroy']); // delete post
+    // User
+    Route::get('/user', [AuthController::class, 'user']);
+    Route::put('/user', [AuthController::class, 'update']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 
+    // Post
+   Route::get('/posts', [PostController::class, 'index']); // all posts
+    Route::post('/posts', [PostController::class, 'store']); // create post
+   Route::get('/posts/{id}', [PostController::class, 'show']); // get single post
+   Route::put('/posts/{id}', [PostController::class, 'update']); // update post
+    Route::delete('/posts/{id}', [PostController::class, 'destroy']); // delete post
 
-// User
-Route::post('/registro', [UsuarioController::class, 'register']);
-Route::post('/acceso', [UsuarioController::class, 'login']);
+    // Comment
+    Route::get('/posts/{id}/comments', [CommentController::class, 'index']); // all comments of a post
+    Route::post('/posts/{id}/comments', [CommentController::class, 'store']); // create comment on a post
+    Route::put('/comments/{id}', [CommentController::class, 'update']); // update a comment
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy']); // delete a comment
 
-Route::get('/user', [UsuarioController::class, 'user']);
-Route::put('/user', [UsuarioController::class, 'update']);
-Route::post('/logout', [UsuarioController::class, 'logout']);//Rutas de API de usuarios
-
-
-
-//Route::post('usuarios', 'UsuarioController@createuser');
-//Route::post('login', 'UsuarioController@login');
+    // Like
+    Route::post('/posts/{id}/likes', [LikeController::class, 'likeOrUnlike']); // like or dislike back a post
+});

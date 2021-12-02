@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
-use App\Comment;
-use App\Like;
+use App\Models\Comment;
+use App\Models\Like;
+use App\Models\Post;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
+
 
 class ImageController extends Controller
 {
@@ -18,8 +17,6 @@ class ImageController extends Controller
     {
         $this->middleware('auth');
     }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -28,28 +25,22 @@ class ImageController extends Controller
     public function index()
     {
         return response([
-            'images' => Image::orderBy('created_at', 'desc')->with('user:id,name,image')->withCount('comments', 'likes')
+            'images' => Post::orderBy('created_at', 'desc')->with('user:id,name,image')->withCount('comments', 'likes')
                 ->with('likes', function($like){
                     return $like->where('user_id', auth()->user()->id)
                         ->select('id', 'user_id', 'post_id')->get();
                 }),
 
         ]);
-
-
-
-
-
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-
         return view('image.create');
     }
 
@@ -57,110 +48,37 @@ class ImageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
+        //validate fields
+        $attrs = $request->validate([
+            'body' => 'required|string',
 
-
-        $validatedData = $request->validate([
-            'image_path' => ['required','image' ,'mimes:jpg,jpeg,png,gif'],
-            'description' => ['required', 'string','max:255'],
-            'grupo' => 'required',
         ]);
 
-        $image_path = $request->image_path;
-        $description = $request->description;
-        $groups = $request->group;
-        $id_user = $request->id_user;
+        $image = $this->saveImageWeb($request->image, 'posts');
 
-        $image = new Image();
-        $image->image_path = null;
-        $image->description = $description;
-        $image->grupo= $groups;
-        $image->fk_id_user = $id_user;
+        $post = Post::create([
+            'body' => $attrs['body'],
+            'user_id' => auth()->user()->id,
+            'image' => $image,
+            'grupo' => 'Todos'
+        ]);
 
-        //Subir imagen
-        if($image_path){
-            $image_path_name = time().$image_path->getClientOriginalName();
-            Storage::disk('images')->put($image_path_name,File::get($image_path));
-            $image->image_path = $image_path_name;
-        }
-
-        $image->save();
-        //Envío de notificaciones push a una aplicación Android
-        $SERVER_API_KEY = 'AAAA9zOkRgY:APA91bGFLkuWyjgKjBhJ_p7a5imZJ4l2jKU1jKK6OirkH7Qz9ZwdfyXOEpK9vJAYmGz685tYU3UGSYluJFwpHU1bxeWjX30PfinSwMYmJRe9LdU-Zq4U0867Ygy-wFrC7XVDiRkeOEzm';
-
-        $token_1 = 'dNx_qOYPSw6Ns10HvUka_6:APA91bENxTSHgKUMpbSEDEMPWCSnqoUBWVEM_7aerFFinumptLJ01ZAZLXj-M1SHqNIVuHhIJYzPZUttnPPyO-p2zBo2xl6za4fWh51W3ImKWBvImlpqWxHsKFoUcy8oReLOVh8zSgvU';
-        $token_2 = 'f0e6hDv1TVe_dujSPAfxrC:APA91bExhbnStsYnYSMXSLbKdy9mBkjlb7hoMCOGPW5TrEG-6AxzsG9eY5wCgj-0QQ7dKCDPzvgTdfhbVlX_q9xStPuRHvHKU6ZS7Ubaq6bq4ieobkMBYUw4RAapm8nh4fWGqD1zTj5-';
-        $data = [
-
-            "registration_ids" => [
-                $token_1,
-                $token_2
-            ],
-
-            "notification" => [
-
-                "title" => 'Nuevo aviso',
-
-                "body" => $description,
-
-                "sound"=> "default" // required for sound on ios
-
-            ],
-
-        ];
-
-        $dataString = json_encode($data);
-
-        $headers = [
-
-            'Authorization: key=' . $SERVER_API_KEY,
-
-            'Content-Type: application/json',
-
-        ];
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-
-        curl_setopt($ch, CURLOPT_POST, true);
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-
-        $response = curl_exec($ch);
-        //dd($response);
-
-        //return response([
-        //  'message' => 'Post created.',
-        //    'image' => $image,
-        // ], 200);
-
-        return redirect()->route('home')->with('message', 'El aviso ha sido publicado correctamente',$response);
-
-
-
-
+        return redirect()->route('home')->with('message', 'El aviso ha sido publicado correctamente',$post);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
     {
-
-        $image = Image::find($id);
+        $image = Post::find($id);
 
         return view('image.detail')->with('image', $image);
     }
@@ -169,18 +87,18 @@ class ImageController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
     public function edit($id)
     {
-        $user = \Auth::user();
-        $image = Image::find($id);
+        $user =\Auth::user();
+        $image = Post::find($id);
 
-        if($user && $image && $image->fk_id_user == $user->id_user){
+        if($user && $image && $image->user_id == $user->id){
 
             return view ('image.edit')->with('image', $image);
         }else{
-            return redirect()->route('home');
+            return redirect()->route('home')->with('message', 'No tienes permisos para editar este aviso');
         }
     }
 
@@ -189,46 +107,39 @@ class ImageController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request)
-
     {
         $validatedData = $request->validate([
-            'image_path' => ['image' ,'mimes:jpg,jpeg,png,gif'],
-            'description' => ['required', 'string','max:255'],
-            'grupo' => 'required',
+
+            'body' => ['required', 'string', 'max:255']
+
 
         ]);
 
-        $id_imagen = $request->input('id_imagen');
-        $description = $request->input('description');
-        $grupo = $request->input('grupo');
-        $image_path = null;
+        $id = $request->input('post_id');
+        $body = $request->input('body');
 
-        //Verificar si ha llegado una imagen
-        if($request->image_path != null){
+       // $image = null;
 
-            $image_path = $request->image_path;
-        }
 
         //Conseguir el objeto imagen de la DB y setear la nueva info
-        $image = Image::find($id_imagen);
-        $image->description = $description;
-        $image->grupo= $grupo;
+        $image = Post::find($id);
+        $image->body = $body;
+
 
 
         //Subir imagen
-        if($image_path){
-            $image_path_name = time().$image_path->getClientOriginalName();
-            Storage::disk('images')->put($image_path_name,File::get($image_path));
-            $image->image_path = $image_path_name;
-        }
+
 
         $image->update();
 
         return redirect()->route('home')->with('message', 'Aviso actualizado con exito');
+
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -236,12 +147,19 @@ class ImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
         $user = \Auth::user();
-        $image = Image::find($id);
-        $comments = Comment::where('fk_id_image', '=', $id)->get();
-        $likes = Like::where('fk_id_image', '=', $id)->get();
+        $image = Post::find($id);
+        $comments = Comment::where('post_id', '=', $id)->get();
+        $likes = Like::where('post_id', '=', $id)->get();
 
         if($user && $image &&$image->user->id_user === $user->id_user ){
 
@@ -261,7 +179,7 @@ class ImageController extends Controller
 
             //Eliminar fichero de imagen
 
-            Storage::disk('images')->delete($image->image_path);
+            Storage::disk('posts')->delete($image->image);
 
             //Eliminar registro de imagen
 
@@ -274,12 +192,5 @@ class ImageController extends Controller
         }
 
         return redirect()->route('home')->with($message);
-
-    }
-
-    public function getImage($fileName){
-        $file  = Storage::disk('images')->get($fileName);
-
-        return response($file, 200);
     }
 }

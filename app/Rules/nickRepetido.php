@@ -31,13 +31,13 @@ class nickRepetido implements Rule
         $id_user = auth()->user()->id_user;
 
         $user = DB::table('users')
-        ->select('nick')
-        ->whereNotIn('id_user', array($id_user))
-        ->where('nick', '=', $value)
-        ->get();
+            ->select('nick')
+            ->whereNotIn('id_user', array($id_user))
+            ->where('nick', '=', $value)
+            ->get();
 
         if(count($user) == 0){
-           //echo 'No hay usuario registrados con ese nick';
+            //echo 'No hay usuario registrados con ese nick';
             //die();
             return $valor;
         }else{
@@ -60,3 +60,4 @@ class nickRepetido implements Rule
         return 'Éste nick ya esta registrado';
     }
 }
+

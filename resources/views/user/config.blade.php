@@ -1,109 +1,85 @@
 @extends('layouts.app')
 <title>Configuración del usuario</title>
 @section('content')
-{{-- <h3>Configuración de usuario</h3> --}}
+    {{-- <h3>Configuración de usuario</h3> --}}
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            @if (session('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
-        @endif
-            <div class="card">
-                <div class="card-header">{{ __('Configura tu usuario') }}</div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                @if (session('message'))
+                    <div class="alert alert-success">
+                        {{ session('message') }}
+                    </div>
+                @endif
+                <div class="card">
+                    <div class="card-header">{{ __('Configura tu usuario') }}</div>
 
-                <div class="card-body">
-                <form method="POST" action="{{action('UserController@update')}}" enctype="multipart/form-data" >
-                        @csrf
+                    <div class="card-body">
+                        <form method="POST" action="{{action('UserController@update')}}" enctype="multipart/form-data" >
+                            @csrf
 
-                        <input type="hidden" value="{{Auth::user()->id_user}}">
+                            <input type="hidden" value="{{Auth::user()->user_id}}">
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ Auth::user()->name }}" required autocomplete="name" autofocus>
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ Auth::user()->name }}" required autocomplete="name" autofocus>
 
-                                @error('name')
+                                    @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                        {{-- Custom field: surname | type: text --}}
-                        <div class="form-group row">
-                            <label for="surname" class="col-md-4 col-form-label text-md-right">{{ __('Surname') }}</label>
+                            {{-- Custom field: surname | type: text --}}
 
-                            <div class="col-md-6">
-                                <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ Auth::user()->surname }}" required autocomplete="name" autofocus>
+                            {{-- Custom field: nick | type: text --}}
 
-                                @error('surname')
+
+                            <div class="form-group row">
+                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email">
+
+                                    @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                        {{-- Custom field: nick | type: text --}}
-                        <div class="form-group row">
-                            <label for="nick" class="col-md-4 col-form-label text-md-right">{{ __('Nick') }}</label>
+                            <div class="form-group row">
+                                <label for="image_path" class="col-md-4 col-form-label text-md-right">{{ __('Image') }}</label>
+                                <div class="col-md-4">
+                                    <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" value="" required>
 
-                            <div class="col-md-6">
-                                <input id="nick" type="text" class="form-control @error('nick') is-invalid @enderror" name="nick" value="{{ Auth::user()->nick }}" required autocomplete="nick" autofocus>
-
-                                @error('nick')
+                                    @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                    @enderror
+                                </div>
+                                <div class="col-md-3">
+                                    @include('includes.avatar')
+                                </div>
+
+
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Guardar cambios
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="image_path" class="col-md-4 col-form-label text-md-right">{{ __('Imagen') }}</label>
-                            <div class="col-md-4">
-                                <input id="imagen_path" type="file" class="form-control @error('image_path') is-invalid @enderror" name="image_path" value="" required>
-
-                                @error('image_path')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-md-3">
-                                @include('includes.avatar')
-                            </div>
-
-
-                        </div>
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Guardar cambios
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 @endsection
