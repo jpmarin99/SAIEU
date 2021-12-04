@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <script src="./js/push.min.js"></script>
     <head>
         <style>
             /* Set the size of the div element that contains the map */
@@ -9,9 +8,56 @@
                 height: 400px;  /* The height is 400 pixels */
                 width: 100%;  /* The width is the width of the web page */
             }
+
+            #container {
+                margin: 0px auto;
+                width: 500px;
+                height: 375px;
+                border: 10px #333 solid;
+            }
+            #videoElement {
+                width: 500px;
+                height: 250px;
+                background-color: #666;
+            }
+
+            @media only screen and (max-width: 700px) {
+                #videoElement {
+                    width: 100%;
+                    height: 250px;
+                    background-color: #666;
+                }
+            }
+
+
+
         </style>
+
+
+
     </head>
     <body>
+
+    <h3>Eres tú!</h3>
+    <video autoplay="true" id="videoElement">
+
+    </video>
+    <script>
+        var video = document.querySelector("#videoElement");
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function (err0r) {
+                    console.log("Something went wrong!");
+                });
+        }
+        Notification.requestPermission().then(() => new Notification('Bienvenido al Sistema!'))
+    </script>
+    <div class="container mt--10 pb-5"></div>
+
 
     <h3>Mi ubicación en Google Maps!</h3>
     <!--The div element for the map -->
@@ -71,15 +117,7 @@
         }
         var p = navigator.mediaDevices.getUserMedia({ audio: true, video: true });
 
-        p.then(function(mediaStream) {
-            var video = document.querySelector('video');
-            video.src = window.URL.createObjectURL(mediaStream);
-            video.onloadedmetadata = function(e) {
-                // Do something with the video here.
-            };
-        });
 
-        p.catch(function(err) { console.log(err.name); }); // always check for errors at the end.
 
         function notifyMe() {
             var permission = Notification.permission;
@@ -127,7 +165,7 @@
 
     </script>
     <script>
-        const camara = new Camara( $('#player')[0] );
+
 
 
 
@@ -139,8 +177,8 @@
         <div id="demo"></div>
     </div>
     <!-- Botón de notificaciones -->
-    <button class="oculto btn-noti-activadas">Notificaciones Activadas</button>
-    <button class="oculto btn-noti-desactivadas">Notificaciones Desactivadas</button>
+    {{-- <button class="oculto btn-noti-activadas">Notificaciones Activadas</button>
+     <button class="oculto btn-noti-desactivadas">Notificaciones Desactivadas</button>--}}
     <!-- Fin de boton de notificaciones -->
     <h1>No tiene conexion a internet intente de nuevo mas tarde.</h1>
     <img src="{{asset('images/png/SAIEU.png')}}" alt="" class="w-100 light-shape default-shape">
